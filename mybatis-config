@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<!-- DB 테이블과 컬럼들을 mapper 매핑을 위한 변수 선언-->
+	<properties>
+		<!--
+		* property
+		- name : mapper.xml에서 사용될 이름
+		- value : DB 테이블 및 컬럼 이름
+		 -->
+		 <property name="movie" value="MOVIE"/>
+		 <property name="movieId" value="MOVIEID"/>
+		 <property name="ageLimit" value="AGELIMIT"/>
+		 <property name="movieName" value="MOVIENAME"/>
+		 <property name="movieGenre" value="MOVIEGENRE"/>
+		 <property name="movieSummary" value="MOVIESUMMARY"/>
+		 <property name="screenTime" value="SCREENTIME"/>
+		 <property name="releaseDate" value="RELEASEDATE"/>
+		 <property name="movieCast" value="MOVIECAST"/>
+		 <property name="audCount" value="AUDCOUNT"/>
+	</properties>
+
+	<!--
+	typeAliases : mapper.xml의 select 리턴 타입에 들어갈 클래스 경로를 설정
+	 -->
+	 <typeAliases>
+	 	<package name="goott.spring.project1.domain"/>
+	 </typeAliases>
+
+</configuration>
