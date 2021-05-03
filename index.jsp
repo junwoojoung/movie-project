@@ -3,8 +3,8 @@
 <style>
    body{
       width: 100%;
-      height: 1000px;
-      font-size: 15px;
+      height: 1300px;
+      color: white;
 
    }
    header{
@@ -16,16 +16,15 @@
       width: 100%;
    }
 
-/* 메가박스 로고에 대한 설정 */
-   header .ci a{
+
+   .logo_img{
+   padding-top: 40px;
+   padding-left:768px;
+   width: 200px;
+   height: 60px;
    display: block;
-   width: 350px;
-   height: 70px;
-   margin: 0;
-   padding: 0;
-   font-size: 0;
-   line-height: 0;
-   background: url(https://img.megabox.co.kr/static/pc/images/common/ci/logo-white_new.png) center center no-repeat;
+   position: absolute;
+
    }
 
    nav{
@@ -33,7 +32,7 @@
    }
 
    section{
-      background-color: #1e2b44;
+      background-color: #1f304e;
       width: 99% float:left;
       height: 60%;
       padding: 10px;
@@ -48,6 +47,7 @@
    }
 
    div.horizontal{
+   	  padding-top:80px;
       width: 100%;
       height: 60px;
    }
@@ -60,10 +60,10 @@
 
    div.horizontal li{
       float: left;
+      padding-left: 280px;
    }
 
 	.nav-menu {
-		display: flex;
 		justify-content: space-around;
 		height: 100vh;
 	}
@@ -92,18 +92,46 @@
 		width: 100%;
 	}
 
+	.login{
+		padding-top: 30px;
+		padding-left: 1450px;
+		position: absolute;
+	}
 
+	.div_right{
+	color: #888;
+	font-size: 15px;
+	text-decoration: none;
 
+	}
+
+/* 팝업창 클릭 시 주위 배경 어둡게 */
+.emphasized {
+
+position:fixed;
+
+left:10000px;
+
+box-shadow : rgba(0,0,0,0.5) 0 0 0 9999px, rgba(0,0,0,0.9) 2px 2px 3px 3px;
+
+z-index : 100;
+
+}
 
 </style>
 <!DOCTYPE html>
 <html>
 <head>
 
-
 <meta charset="UTF-8">
 <title>영화의 시작, 메가박스</title>
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="#">
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+
+
+</script>
+
 </head>
 <body style="position: relative; margin: 0 auto">
 <%
@@ -112,10 +140,25 @@
 
 <!-- 헤더영역 시작 -->
 <header>
-   <h1 class="ci" align="center">
-   		<a href="" title="메인으로 가기">MEGABOX : Life Theater</a>
-   </h1>
-<!-- 네비케이션영역 시작-->
+   <div class="logo">
+   		<a href="/project1/movie/index" title="메인으로 가기">
+   		<img class="logo_img" alt="메인 로고" src="https://img.megabox.co.kr/static/pc/images/common/ci/logo-white_new.png">
+   		</a>
+
+
+
+   		<div class="login">
+			<a class="div_right"
+			href="#"
+			onclick="window.open('/project1/movie/login', 'login', 'width=700, height=484, left=600, top=260, location=no,toolbar=no, status=no, scrollbars=no')"
+			 >로그인</a>
+
+
+			<a href="" class="div_right">회원가입</a>
+		</div>
+   </div>
+
+
 <nav class="nav-menu">
 <div class="horizontal">
 	<ul>
@@ -126,7 +169,8 @@
     </ul>
 </div>
 </nav>
-<!-- 네비게이션영역 끝 -->
+
+
 </header>
 <!-- 헤더영역 끝 -->
 
@@ -151,5 +195,15 @@
    영화 예매 사이트 제작 : 이인호, 정준우
 </footer>
 <!-- 푸터영역 끝-->
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".div_right").click(function(){
+			$(".div_right").toggleClass("emphasized");
+
+		}); // end click
+	}); // end document
+</script>
 </body>
 </html>
