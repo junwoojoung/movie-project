@@ -2,22 +2,22 @@ package goott.spring.project1.domain;
 
 // 예매정보
 public class ReserveVO {
-	private int saleId;  // 예매 ID
-	private int movieId; // 영화 ID
-	private int userId;  // 회원 ID
-	private int priceId; // 관람료 ID
-	private int seatId;  // 좌석 ID
-	private int reserveTotPrice;  // 총 결제 비용
+	private String saleId;  // 예매 ID
+	private String movieId; // 영화 ID
+	private String userId;  // 회원 ID
+	private String priceId; // 관람료 ID
+	private String seatId;  // 좌석 ID
+	private String reserveTotPrice;  // 총 결제 비용
 	private String reserveViewDay; // 관람일
 	private String reserveBuyDay; // 예매일
 	private char reserveYnc; // 예매 취소/ 변경
-	
+
 	public ReserveVO() {
 		super();
 	}
 
-	public ReserveVO(int saleId, int movieId, int userId, int priceId, int seatId, int reserveTotPrice,
-			String reserveViewDay, String reserveBuyDay, char reserveYnc) {
+	public ReserveVO(String saleId, String movieId, String userId, String priceId, String seatId,
+			String reserveTotPrice, String reserveViewDay, String reserveBuyDay, char reserveYnc) {
 		super();
 		this.saleId = saleId;
 		this.movieId = movieId;
@@ -30,51 +30,51 @@ public class ReserveVO {
 		this.reserveYnc = reserveYnc;
 	}
 
-	public int getSaleId() {
+	public String getSaleId() {
 		return saleId;
 	}
 
-	public void setSaleId(int saleId) {
+	public void setSaleId(String saleId) {
 		this.saleId = saleId;
 	}
 
-	public int getMovieId() {
+	public String getMovieId() {
 		return movieId;
 	}
 
-	public void setMovieId(int movieId) {
+	public void setMovieId(String movieId) {
 		this.movieId = movieId;
 	}
 
-	public int getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 
-	public int getPriceId() {
+	public String getPriceId() {
 		return priceId;
 	}
 
-	public void setPriceId(int priceId) {
+	public void setPriceId(String priceId) {
 		this.priceId = priceId;
 	}
 
-	public int getSeatId() {
+	public String getSeatId() {
 		return seatId;
 	}
 
-	public void setSeatId(int seatId) {
+	public void setSeatId(String seatId) {
 		this.seatId = seatId;
 	}
 
-	public int getReserveTotPrice() {
+	public String getReserveTotPrice() {
 		return reserveTotPrice;
 	}
 
-	public void setReserveTotPrice(int reserveTotPrice) {
+	public void setReserveTotPrice(String reserveTotPrice) {
 		this.reserveTotPrice = reserveTotPrice;
 	}
 
@@ -104,10 +104,12 @@ public class ReserveVO {
 
 	@Override
 	public String toString() {
-		return "reserveVO [saleId=" + saleId + ", movieId=" + movieId + ", userId=" + userId + ", priceId=" + priceId
+		return "ReserveVO [saleId=" + saleId + ", movieId=" + movieId + ", userId=" + userId + ", priceId=" + priceId
 				+ ", seatId=" + seatId + ", reserveTotPrice=" + reserveTotPrice + ", reserveViewDay=" + reserveViewDay
 				+ ", reserveBuyDay=" + reserveBuyDay + ", reserveYnc=" + reserveYnc + "]";
 	}
-	
-	
+
+
+
+
 }
