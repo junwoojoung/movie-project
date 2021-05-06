@@ -154,7 +154,7 @@ z-index : 100;
 			 >로그인</a>
 
 
-			<a href="" class="div_right">회원가입</a>
+			<a href="/project1/movie/join" class="div_right">회원가입</a>
 		</div>
    </div>
 
@@ -204,6 +204,10 @@ z-index : 100;
 
 		}); // end click
 	}); // end document
+
+
+
+
 </script>
 </body>
 </html>
