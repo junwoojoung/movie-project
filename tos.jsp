@@ -220,6 +220,8 @@
 <title>약관동의</title>
 </head>
 <body class="bg-member">
+	<!-- hidden으로 받아야됨 -->
+	<input type="hidden" name="name" id="name" value="${name }">
 
 	<!-- 로고 및 각 STEP 표시 -->
 	<div class="member-wrap">
@@ -267,7 +269,6 @@
 				</div>
 			</div> <!-- end col -->
 		</div> <!-- end col-wrap -->
-
 
 
 	<!-- 실명인증을 위한 안내문 -->
@@ -910,13 +911,14 @@
 		$('#btn').click(function(){
 			if ($('input[id=chk-necessary]').is(':checked') == true){
 				alert('다음 페이지로 이동');
-				location.href='/project1/movie/info-input';
+				location.href='/project1/movie/info-input?name=' + name;
 
 			} else {
 				alert('필수 약관 동의 버튼을 클릭해 주세요');
 			}
 		})
 	})
+
 
 </script>
 
