@@ -47,7 +47,7 @@
 	<p>본인 주민등록 기준의 정보를 입력해 주세요.</p>
 		<form name="authInfo">
 			<br>
-			성명 <input type="text" name="name" placeholder="이름">
+			성명 <input type="text" name="name" id="name" placeholder="이름">
 			<br>
 			<br>
 			생년월일 <select name="birth1">
@@ -130,17 +130,17 @@
 		}
 
 		if(chk == false) {
-				alert("개인정보 수집에 대한 동의 여부를 확인해 주시기 바랍니다.")
+				alert("개인정보 수집에 대한 동의 여부를 확인해 주시기 바랍니다.");
 				return false;
 		}
 
-// 		authInfo.action = "project1/movie/tos";
-		opener.location.href='/project1/movie/tos';
-		window.close();
+		var name = document.getElementById("name").value;
+		console.log(name);
+// 		authInfo.action = "/project1/movie/tos?name=" + name;
 		authInfo.submit();
+		opener.location.href='/project1/movie/tos?name=' + name;
+		window.close();
 		alert("실명인증이 완료되었습니다!");
-
-
 	}
 </script>
 
