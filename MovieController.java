@@ -2,7 +2,7 @@ package goott.spring.project1.controller;
 
 import java.util.List;
 
-import javax.inject.Inject;
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -11,9 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import goott.spring.project1.domain.MovieVO;
 import goott.spring.project1.service.MovieService;
@@ -46,27 +46,26 @@ public class MovieController {
 		LOGGER.info("회원가입 화면 호출");
 	}
 
-//	@RequestMapping("/auth")
-//	public String auth() {
-//		LOGGER.info("실명인증 팝업창 호출");
-//		return "movie/auth";
-//	}
+	@RequestMapping("/auth")
+	public String auth() {
+		LOGGER.info("실명인증 팝업창 호출");
+		return "movie/auth";
+	}
 
 	@GetMapping("/tos")
-	public void tos() {
+	public void tos(String name, Model model) {
 		LOGGER.info("이용 약관 동의 페이지");
-	}
-
-	@RequestMapping(value = "/auth", method = RequestMethod.GET)
-	public String auth_info_get(HttpServletRequest httpServletRequest, Model model) {
-		System.out.println("정보 전달하기");
-
-		String name = httpServletRequest.getParameter("name");
-		System.out.println("이름 : " + name);
+		LOGGER.info("첫번째 값 받기 : " + name);
 		model.addAttribute("name", name);
-
-		return "/info-input";
 	}
+
+	@GetMapping("/info-input")
+	public void info_input(String name, Model model) {
+		LOGGER.info("회원 정보 입력 페이지");
+		LOGGER.info("두번째 값 받기 : "+ name);
+		model.addAttribute("name", name);
+	}
+
 
 
 
