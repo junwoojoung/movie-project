@@ -22,17 +22,54 @@
 
 	.btn_area{
 		padding-top: 25px;
-		padding-left: 200px;
 
 	}
 
-	.btn{
-		border-radius: 9px;
-		width: 100px;
+	.btn1, .btn2{
+		width: 418px;
 		height: 50px;
-		background-color: #d3d3d3;
-		font-weight: bold;
-		color: white;
+		font-size: 20px;
+		margin-bottom: 10px;
+		border: 0;
+	}
+
+	.btn1{
+		background-color: #8041D9;
+		color: #fff;
+	}
+	.btn2{
+		background-color: #ebebeb;
+		color: #fff;
+	}
+
+	#name, #phone{
+		margin-left:20px;
+		height: 44px;
+		width: 374px;
+		font-size: 20px;
+	}
+
+	#ssn1{
+ 		margin-right: 10px;
+	}
+	#ssn2{
+		margin: 0;
+		padding: 0;
+	}
+
+	#ssn1, #ssn2{
+		margin-left: 20px;
+		width: 153px;
+		height: 44px;
+		font-size: 20px;
+	}
+
+	.text{
+		margin-left: 20px;
+	}
+
+	.ssn-blank{
+		margin-left: 13px;
 	}
 
 
@@ -47,29 +84,20 @@
 	<p>본인 주민등록 기준의 정보를 입력해 주세요.</p>
 		<form name="authInfo">
 			<br>
-			성명 <input type="text" name="name" id="name" placeholder="이름">
+			<label class="text">성명</label>
+			<br>
+			<input type="text" name="name" id="name" >
 			<br>
 			<br>
-			생년월일 <select name="birth1">
-       					<%for(int i=2021; i>=1950; i--){ %>
-       						<option value="<%=i %>"><%=i %></option>
-     					<%} %>
-     			  </select>년&nbsp;
-     			  <select name="birth2">
-       					<%for(int i=1; i<=12; i++){ %>
-       						<option value="<%=i %>"><%=i %></option>
-       					<%} %>
-     			  </select>
-				  <select name="birth3">
-       					<%for(int i=1; i<=31; i++){ %>
-       						<option value="<%=i %>"><%=i %></option>
-       					<%} %>
-     			  </select>일
-     			  <br>
-				  <br>
-
-     		성별:<input type="radio" name="gender" value="M" >남자
-			<input type="radio" name="gender" value="W" >여자<br/>
+			<label class="text">주민등록번호</label>
+			<br>
+			<input type="text" name="ssn1" id="ssn1" maxlength="6"></input>
+			<label  class="ssn-blank">-</label>
+            <input type="password" name="ssn2" id="ssn2" maxlength="7"></input><br/>
+   	    	<br>
+			<label class="text">휴대폰번호</label>
+			<br>
+			<input type="text" name="phone" id="phone" maxlength="11" placeholder="'-'제외하고 숫자만 입력">
 			<br>
 			<br>
 		</form>
@@ -79,8 +107,9 @@
 		<input type='checkbox' name='agree' value='agree' />개인정보 제3자 위탁 정보제공에 대한 안내
 		<br>
 		<div class="btn_area">
-			<input type="button" value="확인" class="btn" onclick="auth_check()">
-			<input type="button" value="취소" class="btn" onclick="window.close()">
+			<input type="button" value="확인" class="btn1" onclick="auth_check()">
+			<br>
+			<input type="button" value="취소" class="btn2" onclick="window.close()">
 		</div> <!-- end btn -->
 	</div> <!-- end blank -->
 
@@ -100,24 +129,44 @@
 		}
 
 
-		if (authInfo.birth1.value > 2006){
-			 alert("14세 미만 어린이는 보호자와 함께 진행해 주시기 바랍니다.");
-			 return false;
-		}
+		var num1 = document.getElementById("ssn1");
+        var num2 = document.getElementById("ssn2");
 
-		var chk_radio = document.getElementsByName('gender');
-		var sel_type = null;
+        var arrNum1 = new Array(); // 주민번호 앞자리숫자 6개를 담을 배열
+        var arrNum2 = new Array(); // 주민번호 뒷자리숫자 7개를 담을 배열
 
-		for(var i=0;i<chk_radio.length;i++){
-			if(chk_radio[i].checked == true){
-				sel_type = chk_radio[i].value;
-			}
-		}
+        // -------------- 주민번호 -------------
 
-		if(sel_type == null){
-        	alert("성별을 선택하세요.");
-			return false;
-		}
+        for (var i=0; i<num1.value.length; i++) {
+            arrNum1[i] = num1.value.charAt(i);
+        } // 주민번호 앞자리를 배열에 순서대로 담는다.
+
+        for (var i=0; i<num2.value.length; i++) {
+            arrNum2[i] = num2.value.charAt(i);
+        } // 주민번호 뒷자리를 배열에 순서대로 담는다.
+
+        var tempSum=0;
+
+        for (var i=0; i<num1.value.length; i++) {
+            tempSum += arrNum1[i] * (2+i);
+        } // 주민번호 검사방법을 적용하여 앞 번호를 모두 계산하여 더함
+
+        for (var i=0; i<num2.value.length-1; i++) {
+            if(i>=2) {
+                tempSum += arrNum2[i] * i;
+            }
+            else {
+                tempSum += arrNum2[i] * (8+i);
+            }
+        } // 같은방식으로 앞 번호 계산한것의 합에 뒷번호 계산한것을 모두 더함
+
+        if((11-(tempSum%11))%10!=arrNum2[6]) {
+            alert("올바른 주민번호가 아닙니다.");
+            num1.value = "";
+            num2.value = "";
+            num1.focus();
+            return false;
+        }
 
 		var chk_box = document.getElementsByName('agree');
 		var chk = false;
@@ -135,10 +184,13 @@
 		}
 
 		var name = document.getElementById("name").value;
+		var ssn1 = document.getElementById("ssn1").value;
+		var ssn2 = document.getElementById("ssn2").value;
+		var phone = document.getElementById("phone").value;
+
 		console.log(name);
-// 		authInfo.action = "/project1/movie/tos?name=" + name;
 		authInfo.submit();
-		opener.location.href='/project1/movie/tos?name=' + name;
+		opener.location.href='/project1/movie/tos?name=' + name + "&ssn1=" + ssn1 +"&ssn2=" + ssn2 + "&phone=" + phone;
 		window.close();
 		alert("실명인증이 완료되었습니다!");
 	}
