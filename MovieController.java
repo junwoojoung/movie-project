@@ -53,20 +53,29 @@ public class MovieController {
 	}
 
 	@GetMapping("/tos")
-	public void tos(String name, Model model) {
+	public void tos(String name, String ssn1 , String ssn2, String phone, Model model) {
 		LOGGER.info("이용 약관 동의 페이지");
-		LOGGER.info("첫번째 값 받기 : " + name);
+		LOGGER.info("stem1 -> stem2 : " + name + "\n" + ssn1 + "\n" + ssn2 + "\n" + phone);
 		model.addAttribute("name", name);
+		model.addAttribute("ssn1", ssn1);
+		model.addAttribute("ssn2", ssn2);
+		model.addAttribute("phone", phone);
 	}
 
 	@GetMapping("/info-input")
-	public void info_input(String name, Model model) {
+	public void info_input(String name, String ssn1 , String ssn2, String phone, Model model) {
 		LOGGER.info("회원 정보 입력 페이지");
-		LOGGER.info("두번째 값 받기 : "+ name);
+		LOGGER.info("stem2 -> stem3 : " + name + "\n" + ssn1 + "\n" + ssn2 + "\n" + phone);
 		model.addAttribute("name", name);
+		model.addAttribute("ssn1", ssn1);
+		model.addAttribute("ssn2", ssn2);
+		model.addAttribute("phone", phone);
 	}
 
-
+	@RequestMapping("/test")
+	public void test() {
+		LOGGER.info("확인");
+	}
 
 
 }
