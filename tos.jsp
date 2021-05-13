@@ -25,8 +25,6 @@
 
 
 	body{
-		overflow: auto;
-		overflow-y: scroll;
 		letter-spacing: 0;
 		line-height: 1.5;
 		font-size: 15px;
@@ -37,7 +35,6 @@
 	}
 
 	body, html{
-		overflow: scroll;
 		width: 100%;
 		height: 100%;
 		margin: 0;
@@ -222,6 +219,9 @@
 <body class="bg-member">
 	<!-- hidden으로 받아야됨 -->
 	<input type="hidden" name="name" id="name" value="${name }">
+	<input type="hidden" name="ssn1" id="ssn1" value="${ssn1 }">
+	<input type="hidden" name="ssn2" id="ssn2" value="${ssn2 }">
+	<input type="hidden" name="phone" id="phone" value="${phone }">
 
 	<!-- 로고 및 각 STEP 표시 -->
 	<div class="member-wrap">
@@ -230,7 +230,7 @@
 		</h1>
 		<div class="col-wrap">
 			<div class="col">
-				<div class="step-member" title="가입완료 단계 중 step1 실명인증 단계">
+				<div class="step-member" title="가입완료 단계 중 step2 약관인증 단계">
 					<ol>
 						<li>
 							<p class="step">
@@ -280,7 +280,7 @@
 			메가박스 서비스 이용을 위한 약관에 동의해주세요.
 		</span>
 	</p>
-	<!--// 실명인증을 위한 안내문 -->
+	<!-- end 실명인증을 위한 안내문 -->
 
 
 	<div class="member-rule-agree">
@@ -289,9 +289,10 @@
 	<div class="all-chk">
 		<input type="checkbox" id="chkAll">
 		<label for="chkAll">
-			필수항목 전체동의
+			항목 전체동의
 		</label>
 	</div>
+	<!-- end 약관 동의 모두 선택 -->
 
 	<!-- block1 -->
 	<div class="block">
@@ -648,7 +649,8 @@
 </dl>
 		</div>
 
-	</div><!-- end block1 -->
+	</div>
+	<!-- end block1 -->
 
 	<!-- block2 -->
 	<div class="block">
@@ -763,7 +765,8 @@
 	-웹페이지 방문 및 로그인에 관한 기록: 3개월</dd>
 </dl></div>
 
-	</div> <!-- end block2 -->
+	</div>
+	<!-- end block2 -->
 
 	<!-- block3 -->
 	<div class="block">
@@ -873,21 +876,20 @@
 	</tbody>
 </table></div>
 
-	</div> <!-- end block3 -->
+	</div>
+	<!-- end block3 -->
 
 	</div>
-	<!--// member-rule-agree -->
+	<!-- end member-rule-agree -->
+
 
 	<div class="btn-next">
 		<button type="button" id="btn">확인</button>
 	</div>
 
 
-
-
 	</div> <!-- end member-wrap -->
 	<!-- 로고 및 각 STEP 표시 끝 -->
-
 
 
 <script type="text/javascript">
@@ -906,22 +908,23 @@
 	}) //end document
 
 
-
 	$(document).ready(function(){
 		$('#btn').click(function(){
 			if ($('input[id=chk-necessary]').is(':checked') == true){
 				alert('다음 페이지로 이동');
-				location.href='/project1/movie/info-input?name=' + name;
+				var name = document.getElementById("name").value;
+				var ssn1 = document.getElementById("ssn1").value;
+				var ssn2 = document.getElementById("ssn2").value;
+				var phone = document.getElementById("phone").value;
+				location.href='/project1/movie/info-input?name=' + name + "&ssn1=" + ssn1 +"&ssn2=" + ssn2 + "&phone=" + phone;
 
 			} else {
 				alert('필수 약관 동의 버튼을 클릭해 주세요');
 			}
-		})
-	})
+		}); // end $(#btn).click
+	}); // end document
 
 
 </script>
-
-
 </body>
 </html>
