@@ -393,11 +393,12 @@
 <meta charset="UTF-8">
 <title>회원가입</title>
 </head>
+
 <body class="bg-member">
-<form action="join_complete" method="post">
-	<input type="hidden" value="${ssn1 }" id="ssn1">
-	<input type="hidden" value="${ssn2 }" id="ssn2">
-	<input type="hidden" value="${phone }" id="phone">
+<form id="join-form" method="post">
+	<input type="hidden" value="${ssn1 }"  name="ssnFront" id="ssnFront">
+	<input type="hidden" value="${ssn2 }"  name="ssnBack" id="ssnBack">
+	<input type="hidden" value="${phone }" name="userPhone" id="userPhone">
 	<!-- 로고 및 각 STEP 표시 -->
 	<div class="member-wrap">
 		<h1 class="ci">
@@ -449,12 +450,12 @@
 	<p class="page-info-txt">
 		<strong>
 			${name }님 안녕하세요.
+			<input type="hidden" name="userName" id="userName" value="${name }">
 		</strong>
 		<span>
 			회원정보를 입력해주세요.
 		</span>
 	</p>
-
 
 	<!-- table-wrap -->
 	<div class="table-wrap">
@@ -468,43 +469,47 @@
 				<tr>
 					<th scope="row">생년월일<!--생년월일--></th>
 					<td>
-						<div id="return-ssn"></div>
+						<div id="return-ssn">
+						<input type="hidden" name="ssnFront" id="ssnFront" value="${ssn1 }">
+						<input type="hidden" name="ssnBack" id="ssnBack" value="${snn2 }">
+						</div>
 					</td>
 				</tr>
 
 				<!-- 휴대폰 번호 불러올때 -->
 				<tr id="joinInfoPhone"><th scope="row">휴대폰 번호</th>
 					<td>
-						<div id="return-phone"></div>
+						<div id="return-phone">
+						</div>
 					</td>
 				</tr>
 
 				<tr>
 					<th scope="row"><label for="userId">아이디</label></th>
 					<td>
-						<input maxlength="12" id="userId" type="text" placeholder="영문,숫자 조합(8~12자)" class="input-text w260px">
+						<input maxlength="12" id="userId" name="userId" type="text" placeholder="영문,숫자 조합(8~12자)" class="input-text w260px">
 						<button id="btnUserIdDup" type="button" class="button gray-line small w75px ml08 disabled">중복확인</button>
 						<div id="JoinId-error-text" class="alert" style="display: none;">아이디는 영문,숫자 조합 8자리 이상 12자리 이하 입니다.</div>
 					</td>
 				</tr>
 				<tr>
-					<th scope="row"><label for="userPw">비밀번호<!--비밀번호--></label></th>
+					<th scope="row"><label for="userPw">비밀번호</label></th>
 					<td>
-						<input maxlength="16" id="userPw" type="password" placeholder="영문,숫자,특수기호 중 2가지 이상 조합" class="input-text w260px">
-						<div id="JoinPw-error-text" class="alert" style="display: none;">비밀번호는 영문,숫자,특수기호 중 2가지 이상 조합하여 10자리 이상 16자리 이하 입니다.</div>
+						<input maxlength="16" id="userPw" name="userPw" type="password" placeholder="영문,숫자,특수기호를 모두 조합" class="input-text w260px">
+						<div id="JoinPw-error-text" class="alert" style="display: none;">비밀번호는 영문,숫자,특수기호를 모두 조합하여 8자리 이상 15자리 이하입니다.</div>
 					</td>
 				</tr>
 				<tr>
-					<th scope="row"><label for="userPwConfirm">비밀번호 확인<!--비밀번호 확인--></label></th>
+					<th scope="row"><label for="userPwConfirm">비밀번호 확인</label></th>
 					<td>
-						<input maxlength="16" id="userPwConfirm" type="password" placeholder="영문,숫자,특수기호 중 2가지 이상 조합" class="input-text w260px">
-						<div id="JoinPw-error-text" class="alert" style="display: none;">비밀번호는 영문,숫자,특수기호 중 2가지 이상 조합하여 10자리 이상 16자리 이하 입니다.</div>
+						<input maxlength="16" id="userPwConfirm" type="password" placeholder="영문,숫자,특수기호를 모두 조합" class="input-text w260px">
+						<div id="JoinPw-Dup-text" class="alert" style="display: none;">비밀번호가 일치하지 않거나 형식에 맞지 않습니다.</div>
 					</td>
 				</tr>
 				<tr>
 					<th scope="row"><label for="userEmail">이메일 주소</label></th>
 					<td>
-						<input maxlength="50" id="userEmail" type="text" placeholder="이메일주소를 입력해 주세요" class="input-text w260px">
+						<input maxlength="50" id="userEmail" name="userEmail" type="text" placeholder="이메일주소를 입력해 주세요" class="input-text w260px">
 						<div id="JoinEmail-error-text" class="alert" style="display: none;">올바른 이메일 형식으로 입력해주세요.</div>
 					</td>
 				</tr>
@@ -550,112 +555,87 @@
 		</div>
 	</div>
 	<!-- end marketing-agree -->
-
-
-	<!-- button -->
-	<div class="btn-member-bottom">
-		<button id="btnJoin" type="submit" class="button">회원가입</button>
-	</div>
-	<!-- end button -->
-
-	<input id="insertAlert" type="text" value="${insert_result }">
-
+		<!-- button -->
+		<div class="btn-member-bottom">
+			<button id="btnJoin" type="button" class="button">회원가입</button>
+		</div>
+		<!-- end button -->
 	</div>
 	<!-- end member-wrap -->
 	<!-- 로고 및 각 STEP 표시 끝 -->
 
-	</form>
-
-
-
-
+</form>
 
 <script type="text/javascript">
-
-	// 주민등록번호 앞자리를 2000년 01월 01일 형식으로 출력
 	$(document).ready(function(){
-		var ssn1 = $('#ssn1').val();
+		// 주민등록번호 앞자리를 2000년 01월 01일 형식으로 출력
+		var ssn1 = $('#ssnFront').val();
 		console.log(ssn1);
 
-		var ssn2 = $('#ssn2').val();
+		var ssn2 = $('#ssnBack').val();
 		console.log(ssn2);
 
-			var yy = ssn1.substring(0, 2);
-	  		var mm = ssn1.substring(2, 4);
-	  		var dd = ssn1.substring(4, 6);
-	  		var gender_code = ssn2.substring(0, 1);
+		var yy = ssn1.substring(0, 2);
+	  	var mm = ssn1.substring(2, 4);
+	  	var dd = ssn1.substring(4, 6);
+	  	var gender_code = ssn2.substring(0, 1);
 
-	  		console.log(yy + "년");
-	  		console.log(mm + "월");
-	  		console.log(dd + "일");
-	  		console.log(gender_code + "뒷번호 앞");
+	  	console.log(yy + "년");
+	  	console.log(mm + "월");
+	  	console.log(dd + "일");
+	  	console.log(gender_code + "뒷번호 앞");
 
-	  if (yy == ("00")) {
-	   yy = "20" + yy;
-	  } else {
-	   yy = "19" + yy;
-	  }
+		if (yy == ("00")) {
+			yy = "20" + yy;
+		} else {
+			yy = "19" + yy;
+		}
+		console.log(yy + "년" + mm + "월" + dd + "일");
+		$('#return-ssn').html(yy + "년" + mm + "월" + dd + "일");
 
-	  console.log(yy + "년" + mm + "월" + dd + "일");
-	  $('#return-ssn').html(yy + "년" + mm + "월" + dd + "일");
-	}); // end document
-
-
-
-	// 전화번호 010-1111-1111 형식으로 출력
-	$(document).ready(function(){
-		var phone = $('#phone').val();
+		// 전화번호 010-1111-1111 형식으로 출력
+		var phone = $('#userPhone').val();
 		console.log(phone);
-
 		phone = phone.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3");
-
 		$('#return-phone').html(phone);
 
-	});// end document
 
-
-
-
-	$(document).ready(function(){
-		$('#btnUserIdDup').click(function(){
+		// 회원가입 버튼
+		$("#btnJoin").click(function(){
+			// 문주 / 숫자 포함 8-12자리
 			var idCheck = /^[a-zA-Z0-9]{8,12}$/;
 
-			// 특수문자 / 문자/ 숫자 포함 형태의 8 - 15자리 이내의 암호 정규식
+			// 특수문자 / 문자 / 숫자 포함 형태의 8 - 15자리 이내의 암호 정규식
 			var pwCheck = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
 
-			if ($("#userId").val() == ""){
+			if (!idCheck.test($('#userId').val())){
 				$('#JoinId-error-text').show();
-				$("#id").focus();
+				$('#userId').val('');
+				$('#userId').focus();
 				return false;
 			}
 
-			if (!idCheck.test($("#userId").val())){
-				$('#JoinId-error-text').show();
-				$("#userId").val("");
-				$("#userId").focus();
+			if (!pwCheck.test($('#userPw').val())){
+				$('#JoinPw-error-text').show();
+				$('#userPw').val('');
+				$('#userPw').focus();
+				return false;
+			}
+
+			if ($('#userPw').val() != $('#userPwConfirm').val()){
+				$('#JoinPw-Dup-text').show();
+				$('#userPwConfirm').val('');
+				$('#userPwConfirm').focus();
 				return false;
 			}
 
 
-		}); // end #btnUserIdDup.click
 
-	}); // end document
+			$('#join-form').attr('action', '/project1/movie/info-input');
+			$('#join-form').submit();
 
-
-	$(document).ready(function(){
-		confirmInsertResult(); // 호출
-		function confirmInsertResult(){
-			var result = $('#insertAlert').val();
-			if(result == 'success'){
-				alert('회원가입에 성공하셨습니다.');
-			} else if(result == 'fail'){
-				alert('회원가입 실패\n 형식에 맞게 작성해주세요');
-			}
-		}
-	}); // end document
-
-
-
+		}); // end #btnJoin.click
+	});// end document
 </script>
 
 </body>
