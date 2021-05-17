@@ -11,11 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import goott.spring.project1.domain.MovieVO;
+import goott.spring.project1.domain.UserinfoVO;
 import goott.spring.project1.service.MovieService;
 
 @Controller
@@ -62,20 +66,46 @@ public class MovieController {
 		model.addAttribute("phone", phone);
 	}
 
+	// 회원가입 get
 	@GetMapping("/info-input")
 	public void info_input(String name, String ssn1 , String ssn2, String phone, Model model) {
-		LOGGER.info("회원 정보 입력 페이지");
-		LOGGER.info("stem2 -> stem3 : " + name + "\n" + ssn1 + "\n" + ssn2 + "\n" + phone);
+		LOGGER.info("회원 정보 입력 페이지 호출");
+		LOGGER.info("stem2 -> stem3 : \n" + name + "\n" + ssn1 + "\n" + ssn2 + "\n" + phone);
 		model.addAttribute("name", name);
 		model.addAttribute("ssn1", ssn1);
 		model.addAttribute("ssn2", ssn2);
 		model.addAttribute("phone", phone);
 	}
 
-	@RequestMapping("/test")
-	public void test() {
-		LOGGER.info("확인");
+
+	// 회원가입 post
+	@PostMapping("/info-input")
+	public String postRegister(UserinfoVO vo) throws Exception {
+		LOGGER.info("회원정보 입력 데이터 삽입");
+		LOGGER.info(vo.toString());
+		movieservice.register(vo);
+		return "redirect:/movie/join-complete";
 	}
+
+
+	@RequestMapping(value = "/join-complete", method = {RequestMethod.GET,RequestMethod.POST})
+	public void joinComple() {
+		LOGGER.info("회원가입 성공화면");
+	}
+
+
+	// 아이디 중복체크
+	@ResponseBody
+	@RequestMapping(value = "/userIdChk", method = RequestMethod.POST)
+	public int userIdChk(UserinfoVO vo) throws Exception{
+		int result = movieservice.userIdChk(vo);
+		return result;
+	}
+
+
+
+
+
 
 
 }
