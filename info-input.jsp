@@ -133,6 +133,29 @@
 		background-color: #ebebeb;
 	}
 
+	.member-wrap .page-info-txt{
+		padding: 0 0 20px 0;
+		line-height: 1.1;
+	}
+
+
+	.member-wrap .table-wrap .board-form tr td .button {
+    padding: 0 10px;
+	}
+
+
+	.memver-wrap p{
+		margin: 0;
+	}
+
+
+	strong{
+		display: block;
+		padding: 0 0 10px 0;
+		font-size: 1.4em;
+		color: #222;
+		font-weight: 400;
+	}
 
 
 	.input-text {
@@ -147,10 +170,6 @@
     margin-right: 10px;
 	}
 
-	.member-wrap .table-wrap .board-form tr td .button {
-    padding: 0 10px;
-	}
-
 	.button.gray-line {
     line-height: 36px;
     border: 1px solid #c1c1c1;
@@ -158,23 +177,6 @@
 	}
 
 
-	.member-wrap .page-info-txt{
-		padding: 0 0 20px 0;
-		line-height: 1.1;
-	}
-
-	.memver-wrap p{
-		margin: 0;
-	}
-
-
-	strong{
-		display: block;
-		padding: 0 0 10px 0;
-		font-size: 1.4em;
-		color: #222;
-		font-weight: 400;
-	}
 
 	/* tbody */
 	.table-wrap {
@@ -369,22 +371,17 @@
     text-align: center;
     font-weight: 400;
     border-radius: 4px;
-/*     border: 0; */
+    border: 0;
 	}
 	/* end button*/
 
 
-	.member-wrap .table-wrap .board-form tr td .alert {
+	.alert {
     margin-top: 5px;
     color: #e81002;
     font-size: .9333em;
 	}
 
-	.table-wrap .board-form tr td .alert {
-    margin-top: 5px;
-    color: #e81002;
-    font-size: .9333em;
-	}
 
 
 </style>
@@ -488,7 +485,7 @@
 					<th scope="row"><label for="userId">아이디</label></th>
 					<td>
 						<input maxlength="12" id="userId" name="userId" type="text" placeholder="영문,숫자 조합(8~12자)" class="input-text w260px">
-						<button id="btnUserIdDup" type="button" class="button gray-line small w75px ml08 disabled">중복확인</button>
+						<button id="btnUserIdDup" type="button" onclick="idChk()" value="N" class="button gray-line small w75px ml08 disabled">중복확인</button>
 						<div id="JoinId-error-text" class="alert" style="display: none;">아이디는 영문,숫자 조합 8자리 이상 12자리 이하 입니다.</div>
 					</td>
 				</tr>
@@ -532,25 +529,27 @@
 				<label for="agree">동의</label>
 
 				<input type="radio" id="notagree" name="marketing_agree" class="ml20">
-				<label for="notagree">미동의</label>
+				<label for="notAgree">미동의</label>
 			</div>
+			<div id="agree-check-text" class="alert" style="display: none;">마케팅 활용을 위한 개인정보 수집 여부를 선택해주세요.</div>
 
 			<p class="mt30">혜택 수신설정</p>
 
 			<div class="benefit-agree">
-				<input type="checkbox" id="push">
+				<input type="checkbox" name="mt" id="push">
 				<label for="push">알림</label>
 
-				<input type="checkbox" id="sms" class="ml20">
+				<input type="checkbox" name="mt" id="sms" class="ml20">
 				<label for="sms">SMS</label>
 
-				<input type="checkbox" id="email" class="ml20">
+				<input type="checkbox" name="mt" id="email" class="ml20">
 				<label for="email">이메일</label>
 			</div>
 
 			<p class="mt20">
 				※  이벤트, 신규 서비스, 할인 혜택 등의 소식을 전해 드립니다.<br>(소멸포인트 및 공지성 안내 또는 거래정보와 관련된 내용은 수신 동의 여부와 상관없이 발송됩니다.)
 			</p>
+			<div id="mt-check-text" class="alert" style="display: none;">혜택 수신설정을 완료해주세요.</div>
 
 		</div>
 	</div>
@@ -563,11 +562,31 @@
 	</div>
 	<!-- end member-wrap -->
 	<!-- 로고 및 각 STEP 표시 끝 -->
-
 </form>
 
 <script type="text/javascript">
+function idChk() {
+	$.ajax({
+		url : '/project1/movie/userIdChk',
+		type : 'post',
+		dateType : 'json',
+		data : {'userId' : $('#userId').val()},
+		success : function(data) {
+			if (data == 1) {
+				alert('중복된 아이디입니다.');
+			} else if (data == 0) {
+				$('#btnUserIdDup').attr('value', 'Y');
+				alert('사용가능한 아이디입니다.');
+			}
+		}
+	}); // end ajax
+
+} // end function idChk()
+
+
+
 	$(document).ready(function(){
+
 		// 주민등록번호 앞자리를 2000년 01월 01일 형식으로 출력
 		var ssn1 = $('#ssnFront').val();
 		console.log(ssn1);
@@ -602,11 +621,14 @@
 
 		// 회원가입 버튼
 		$("#btnJoin").click(function(){
-			// 문주 / 숫자 포함 8-12자리
+			// 문주 / 숫자 포함 8-12자리 이내의 아이디 정규식
 			var idCheck = /^[a-zA-Z0-9]{8,12}$/;
 
 			// 특수문자 / 문자 / 숫자 포함 형태의 8 - 15자리 이내의 암호 정규식
 			var pwCheck = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+
+			// 이메일 정규식
+			var emailCheck = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
 
 			if (!idCheck.test($('#userId').val())){
 				$('#JoinId-error-text').show();
@@ -629,8 +651,32 @@
 				return false;
 			}
 
+			if (!emailCheck.test($('#userEmail').val())){
+				$('#JoinEmail-error-text').show();
+				$('#userEmail').val('');
+				$('#userEmail').focus();
+				return false;
+			}
 
+			if ($('input[name=marketing_agree]:radio:checked').length <1) {
+				$('#agree-check-text').show();
+				return false;
+			}
 
+			if ($('input[id=agree]').is(':checked') == true) {
+				if ($('input:checkbox[name="mt"]').is(':checked') == false) {
+					$('#mt-check-text').show();
+					return false;
+				}
+			}
+
+			var idChkVal = $('#btnUserIdDup').val();
+			if (idChkVal == 'N') {
+				alert('중복확인 버튼을 눌러주세요.');
+				return false;
+			}
+
+			alert('회원가입 완료');
 			$('#join-form').attr('action', '/project1/movie/info-input');
 			$('#join-form').submit();
 
