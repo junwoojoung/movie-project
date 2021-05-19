@@ -83,7 +83,17 @@ public class MovieController {
 	public String postRegister(UserinfoVO vo) throws Exception {
 		LOGGER.info("회원정보 입력 데이터 삽입");
 		LOGGER.info(vo.toString());
-		movieservice.register(vo);
+		int result = movieservice.idChk(vo);
+		try {
+			if (result == 1) {
+				return "/info-input";
+			} else if (result == 0) {
+				movieservice.register(vo);
+			}
+			// 입력된 아이디가 존재하면 페이지 돌아가기
+			// 존재하지 않으면 register
+		} catch (Exception e) {
+	}
 		return "redirect:/movie/join-complete";
 	}
 
@@ -97,8 +107,8 @@ public class MovieController {
 	// 아이디 중복체크
 	@ResponseBody
 	@RequestMapping(value = "/userIdChk", method = RequestMethod.POST)
-	public int userIdChk(UserinfoVO vo) throws Exception{
-		int result = movieservice.userIdChk(vo);
+	public int idChk(UserinfoVO vo) throws Exception{
+		int result = movieservice.idChk(vo);
 		return result;
 	}
 
