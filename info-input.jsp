@@ -5,13 +5,6 @@
 <html>
 <style type="text/css">
 
-	html{
-		-webkit-text-size-adjust: 100%;
-		width: 100%;
-		height: 100%;
-	}
-
-
 	.bg-member{
 		background-color: #f5f5f5;
 	}
@@ -26,6 +19,8 @@
 
 
 	body{
+		overflow: auto;
+		overflow-y: scroll;
 		letter-spacing: 0;
 		line-height: 1.5;
 		font-size: 15px;
@@ -36,6 +31,7 @@
 	}
 
 	body, html{
+		overflow: hidden;
 		width: 100%;
 		height: 100%;
 		margin: 0;
@@ -87,6 +83,9 @@
 		margin: 0 0 40px 0;
 		padding: 0;
 	}
+	.member-wrap .step-member ol {
+    overflow: hidden;
+}
 
 	ol, ul{
 		list-style-type: none;
@@ -107,31 +106,34 @@
 		margin-left: 0;
 	}
 
-	.step.on{
-		border-bottom: 2px solid #503396;
-		color: #503396;
-	}
+.member-wrap .step-member ol li .step.on {
+    border-bottom: 2px solid #503396;
+    color: #503396;
+}
 
-	.step{
-		display: inline-block;
-		position: relative;
-		z-index: 2;
-		margin: 0;
-		padding: 0 0 15px 0;
-		font-size: .9333em;
-		letter-spacing: 0;
-	}
+.member-wrap .step-member ol li .step {
+    display: inline-block;
+    position: relative;
+    z-index: 2;
+    margin: 0;
+    padding: 0 0 15px 0;
+    font-size: .9333em;
+    letter-spacing: 0;
+}
 
-	.member-wrap .step-member:after{
-		content: '';
-		overflow: hidden;
-		position: absolute;
-		left: 0;
-		bottom: 0;
-		width: 100%;
-		height: 1px;
-		background-color: #ebebeb;
-	}
+.member-wrap .step-member:after {
+    content: '';
+    overflow: hidden;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #ebebeb;
+}
+
+
+
 
 	.member-wrap .page-info-txt{
 		padding: 0 0 20px 0;
@@ -144,9 +146,17 @@
 	}
 
 
-	.memver-wrap p{
-		margin: 0;
-	}
+
+
+
+
+
+
+
+
+
+
+
 
 
 	strong{
@@ -440,8 +450,7 @@
 
 					</ol>
 				</div>
-			</div> <!-- end col -->
-		</div> <!-- end col-wrap -->
+
 
 
 	<p class="page-info-txt">
@@ -559,6 +568,10 @@
 			<button id="btnJoin" type="button" class="button">회원가입</button>
 		</div>
 		<!-- end button -->
+	</div> <!-- end col -->
+	</div> <!-- end col-wrap -->
+
+
 	</div>
 	<!-- end member-wrap -->
 	<!-- 로고 및 각 STEP 표시 끝 -->
