@@ -1,0 +1,70 @@
+@charset "UTF-8";
+
+	.blank{
+		margin: 0;
+		padding: 0 14px 20px 14px;
+	}
+
+	.head{
+		border-bottom: solid 2px #333;
+		padding-bottom: 10px;
+		margin-bottom: 23px;
+	}
+
+	form{
+		border: 1px solid #333;
+	}
+
+	.btn_area{
+		padding-top: 25px;
+
+	}
+
+	.btn1, .btn2{
+		width: 418px;
+		height: 50px;
+		font-size: 20px;
+		margin-bottom: 10px;
+		border: 0;
+	}
+
+	.btn1{
+		background-color: #8041D9;
+		color: #fff;
+	}
+	.btn2{
+		background-color: #ebebeb;
+		color: #fff;
+	}
+
+	#name, #phone{
+		margin-left:20px;
+		height: 44px;
+		width: 369px;
+		font-size: 20px;
+	}
+
+	#ssn1{
+ 		margin-right: 10px;
+	}
+	#ssn2{
+		margin: 0;
+		padding: 0;
+	}
+
+	#ssn1, #ssn2{
+		margin-left: 20px;
+		width: 153px;
+		height: 44px;
+		font-size: 20px;
+	}
+
+	.text{
+		margin-left: 20px;
+	}
+
+	.ssn-blank{
+		margin-left: 13px;
+	}
+
+	
