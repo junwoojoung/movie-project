@@ -1,0 +1,241 @@
+@charset "UTF-8";
+	html{
+		-webkit-text-size-adjust: 100%;
+		width: 100%;
+		height: 100%;
+	}
+
+	.bg-member{
+		background-color: #f5f5f5;
+	}
+
+	div{
+		display: block;
+	}
+
+	* {
+		box-sizing: border-box;
+	}
+
+
+	body{
+		letter-spacing: 0;
+		line-height: 1.5;
+		font-size: 15px;
+		color: #444;
+		font-weight: 400;
+		/* 폰트 상의 후 */
+		font-family: Arial, sans-serif;
+	}
+
+	body, html{
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+	}
+
+	/* 메가박스 로고 */
+	.ci a{
+		display: block;
+		width: 150px;
+		height: 53px;
+		background: url(https://img.megabox.co.kr/static/pc/images/common/ci/logo.png) center no-repeat;
+		padding: 0;
+		margin: 0 auto;
+	}
+	/* 메가박스 로고 */
+
+
+	.ci{
+		overflow: hidden;
+		display: block;
+		margin: 0;
+		padding: 0 0 70px 0;
+		text-align: center;
+	}
+
+	/**스탭 부분*/
+
+	.member-wrap{
+		width: 910px;
+		min-height: 100%;
+		margin: 0 auto;
+		padding: 80px 100px;
+		background-color: #fff;
+
+	}
+
+	.col-wrap{
+		overflow: hidden;
+	}
+
+	.member-wrap .step-member ol li:first-child{
+		margin-left: 0;
+	}
+
+	.member-wrap .step-member{
+		overflow: hidden;
+		position: relative;
+		margin: 0 0 40px 0;
+		padding: 0;
+	}
+	.member-wrap .step-member ol {
+    overflow: hidden;
+	}
+
+	ol, ul{
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.member-wrap .step-member ol li{
+		float: left;
+		margin: 0 0 0 102px;
+		padding: 0;
+		text-align: center;
+		font-size: .9333em;
+	}
+
+
+	.step-member ol{
+		margin-left: 0;
+	}
+
+	.member-wrap .step-member ol li .step.on {
+   	 border-bottom: 2px solid #503396;
+    	color: #503396;
+	}
+
+	.member-wrap .step-member ol li .step {
+	    display: inline-block;
+	    position: relative;
+	    z-index: 2;
+	    margin: 0;
+	    padding: 0 0 15px 0;
+	    font-size: .9333em;
+	    letter-spacing: 0;
+	}
+
+	.member-wrap .step-member:after {
+	    content: '';
+	    overflow: hidden;
+	    position: absolute;
+	    left: 0;
+	    bottom: 0;
+	    width: 100%;
+	    height: 1px;
+	    background-color: #ebebeb;
+	}
+
+	.member-wrap .page-info-txt{
+		padding: 0 0 20px 0;
+		line-height: 1.1;
+	}
+
+
+	.member-wrap .table-wrap .board-form tr td .button {
+	    padding: 0 10px;
+	}
+
+	.join-complete {
+	    padding: 30px 0;
+	    text-align: center;
+	}
+
+	.join-complete i.ico-join-complete {
+	    display: block;
+	    margin: 0 auto;
+	    padding: 0;
+	}
+
+	.ico-join-complete {
+	    width: 100px;
+	    height: 100px;
+	    background-image: url(https://img.megabox.co.kr/static/pc/images/member/ico-join-complete.png);
+	}
+
+
+	.iconset {
+	    overflow: hidden;
+	    display: inline-block;
+	    margin: -1px 0 0 0;
+	    padding: 0;
+	    font-size: 0;
+	    line-height: 0;
+	    vertical-align: middle;
+	    background-position: 0 0;
+	    background-repeat: no-repeat;
+	}
+
+
+	.join-complete .name {
+	    padding: 30px 0 0 0;
+	    color: #503396;
+	    font-size: 1.4666em;
+	}
+
+	.join-complete p {
+	    margin: 0;
+	    padding: 0;
+	}
+
+	.member-wrap p {
+	    margin: 0;
+	    padding: 0;
+	}
+
+	p {
+	    display: block;
+	    margin-block-start: 1em;
+	    margin-block-end: 1em;
+	    margin-inline-start: 0px;
+	    margin-inline-end: 0px;
+	}
+	.join-complete {
+	    padding: 30px 0;
+	    text-align: center;
+	}
+
+	.join-complete .txt {
+	    padding: 10px 0 15px 0;
+	}
+
+	.member-wrap .btn-member-bottom {
+	    padding: 40px 0 0 0;
+	    text-align: center;
+	}
+
+	.body-wrap{
+		height: 100%;
+	}
+
+
+	.member-wrap .btn-member-bottom .button {
+    width: 120px;
+    height: 46px;
+    padding: 0;
+}
+
+.button.purple.large {
+    line-height: 46px;
+}
+
+
+.button {
+    display: inline-block;
+    height: 36px;
+    margin: 0;
+    padding: 0 15px;
+    text-align: center;
+    line-height: 34px;
+    color: #503396;
+    font-weight: 400;
+    border-radius: 4px;
+    text-decoration: none;
+    border: 1px solid #503396;
+    vertical-align: middle;
+    background-color: #fff;
+    cursor: pointer;
+}
