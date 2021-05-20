@@ -3,77 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style type="text/css">
-
-	.blank{
-		margin: 0;
-		padding: 0 14px 20px 14px;
-	}
-
-	.head{
-		border-bottom: solid 2px #333;
-		padding-bottom: 10px;
-		margin-bottom: 23px;
-	}
-
-	form{
-		border: 1px solid #333;
-	}
-
-	.btn_area{
-		padding-top: 25px;
-
-	}
-
-	.btn1, .btn2{
-		width: 418px;
-		height: 50px;
-		font-size: 20px;
-		margin-bottom: 10px;
-		border: 0;
-	}
-
-	.btn1{
-		background-color: #8041D9;
-		color: #fff;
-	}
-	.btn2{
-		background-color: #ebebeb;
-		color: #fff;
-	}
-
-	#name, #phone{
-		margin-left:20px;
-		height: 44px;
-		width: 374px;
-		font-size: 20px;
-	}
-
-	#ssn1{
- 		margin-right: 10px;
-	}
-	#ssn2{
-		margin: 0;
-		padding: 0;
-	}
-
-	#ssn1, #ssn2{
-		margin-left: 20px;
-		width: 153px;
-		height: 44px;
-		font-size: 20px;
-	}
-
-	.text{
-		margin-left: 20px;
-	}
-
-	.ssn-blank{
-		margin-left: 13px;
-	}
-
-
-</style>
+	<link href="../resources/css/auth.css" rel="stylesheet" type="text/css">
 <meta charset="UTF-8">
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <title>실명 인증</title>
@@ -102,93 +32,90 @@
 			<br>
 		</form>
 
-		<input type='checkbox' name='agree' value='agree' />개인정보 수집 및 이용에 대한 동의
+		<input type='checkbox' name='agree1' value='agree' />개인정보 수집 및 이용에 대한 동의
 		<br>
-		<input type='checkbox' name='agree' value='agree' />개인정보 제3자 위탁 정보제공에 대한 안내
+		<input type='checkbox' name='agree2' value='agree' />개인정보 제3자 위탁 정보제공에 대한 안내
 		<br>
 		<div class="btn_area">
 			<input type="button" value="확인" class="btn1" onclick="auth_check()">
 			<br>
 			<input type="button" value="취소" class="btn2" onclick="window.close()">
-		</div> <!-- end btn -->
-	</div> <!-- end blank -->
-
-
+		</div>
+		<!-- end btn -->
+	</div>
+	 <!-- end blank -->
 
 <script type="text/javascript">
-	function auth_check() {
-		if (authInfo.name.value == ""){
-			 alert("이름이 입력되지 않았습니다.");
-			 authInfo.name.focus();
-			 return false;
-		}
 
-		if (authInfo.name.value.replace(/^[가-힣]*$/,"") != "") {
-			alert("제대로된 이름을 작성해 주십시오.");
+	function auth_check() {
+
+		// 이름 유효성 검사
+		var nameCheck = /^[가-힣]+$/;
+
+		if (!nameCheck.test($('#name').val())){
+			alert('올바른 이름을 입력해주세요.');
 			return false;
 		}
 
 
-		var num1 = document.getElementById("ssn1");
-        var num2 = document.getElementById("ssn2");
+        var ssn = $("#ssn1").val() + $("#ssn2").val();
+        //주민등록번호 생년월일 전달
 
-        var arrNum1 = new Array(); // 주민번호 앞자리숫자 6개를 담을 배열
-        var arrNum2 = new Array(); // 주민번호 뒷자리숫자 7개를 담을 배열
+        var fmt = RegExp(/^\d{6}[1234]\d{6}$/)  //포멧 설정
+        var buf = new Array(13);
 
-        // -------------- 주민번호 -------------
 
-        for (var i=0; i<num1.value.length; i++) {
-            arrNum1[i] = num1.value.charAt(i);
-        } // 주민번호 앞자리를 배열에 순서대로 담는다.
+        //주민번호 유효성 검사
+        if (!fmt.test(ssn)) {
+              alert("주민등록번호 형식에 맞게 입력해주세요");
+              $("#ssn1").focus();
+              return false;
+          }
 
-        for (var i=0; i<num2.value.length; i++) {
-            arrNum2[i] = num2.value.charAt(i);
-        } // 주민번호 뒷자리를 배열에 순서대로 담는다.
+          //주민번호 존재 검사
+           for (var i = 0; i < buf.length; i++){
+             buf[i] = parseInt(ssn.charAt(i));
+        }
+             var multipliers = [2,3,4,5,6,7,8,9,2,3,4,5];// 밑에 더해주는 12자리 숫자들
+             var sum = 0;
 
-        var tempSum=0;
+              for (var i = 0; i < 12; i++){
+                  sum += (buf[i] *= multipliers[i]);// 배열끼리12번 돌면서
+             }
+               if ((11 - (sum % 11)) % 10 != buf[12]) {
+                  alert("잘못된 주민등록번호 입니다.");
+                  $('#ssn1').val('');
+                  $('#ssn2').val('');
+                  $('#ssn1').focus();
+                    return false;
+               }
 
-        for (var i=0; i<num1.value.length; i++) {
-            tempSum += arrNum1[i] * (2+i);
-        } // 주민번호 검사방법을 적용하여 앞 번호를 모두 계산하여 더함
+        // 전화번호 유효성 검사
+        var phoneCheck = /^[0-9]{2,3}[0-9]{3,4}[0-9]{4}/;
 
-        for (var i=0; i<num2.value.length-1; i++) {
-            if(i>=2) {
-                tempSum += arrNum2[i] * i;
-            }
-            else {
-                tempSum += arrNum2[i] * (8+i);
-            }
-        } // 같은방식으로 앞 번호 계산한것의 합에 뒷번호 계산한것을 모두 더함
-
-        if((11-(tempSum%11))%10!=arrNum2[6]) {
-            alert("올바른 주민번호가 아닙니다.");
-            num1.value = "";
-            num2.value = "";
-            num1.focus();
-            return false;
+        if (!phoneCheck.test($('#phone').val())) {
+        	alert("유효하지 않은 전화번호 이거나 형식에 맞지 않습니다.");
+        	$('#phone').focus();
+        	return false;
         }
 
-		var chk_box = document.getElementsByName('agree');
-		var chk = false;
-		for(var i=0 ; i<chk_box.length ; i++) {
-			if(chk_box[i].checked) {
-				chk = true;
-			} else {
-				chk = false;
-			}
+		// 개인정보 동의 유효성 검사
+		if ($('input:checkbox[name=agree1]').is(':checked') == false) {
+			alert("개인정보 수집에 대한 동의 여부를 확인해 주시기 바랍니다.");
+			return false;
 		}
 
-		if(chk == false) {
-				alert("개인정보 수집에 대한 동의 여부를 확인해 주시기 바랍니다.");
-				return false;
+		if ($('input:checkbox[name=agree2]').is(':checked') == false) {
+			alert("개인정보 제3자 위탁 정보제공에 대한 안내에 대한 동의 여부를 확인해 주시기 바랍니다.");
+			return false;
 		}
 
-		var name = document.getElementById("name").value;
-		var ssn1 = document.getElementById("ssn1").value;
-		var ssn2 = document.getElementById("ssn2").value;
-		var phone = document.getElementById("phone").value;
+		// url에 전달하기 위한 값 받기
+		var name = $('#name').val();
+		var ssn1 = $('#ssn1').val();
+		var ssn2 = $('#ssn2').val();
+		var phone = $('#phone').val();
 
-		console.log(name);
 		authInfo.submit();
 		opener.location.href='/project1/movie/tos?name=' + name + "&ssn1=" + ssn1 +"&ssn2=" + ssn2 + "&phone=" + phone;
 		window.close();
