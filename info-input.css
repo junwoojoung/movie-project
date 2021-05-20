@@ -1,0 +1,372 @@
+@charset "UTF-8";
+
+		html{
+		-webkit-text-size-adjust: 100%;
+		width: 100%;
+		height: 100%;
+	}
+
+	.bg-member{
+		background-color: #f5f5f5;
+	}
+
+	div{
+		display: block;
+	}
+
+	* {
+		box-sizing: border-box;
+	}
+
+
+	body{
+		letter-spacing: 0;
+		line-height: 1.5;
+		font-size: 15px;
+		color: #444;
+		font-weight: 400;
+		/* 폰트 상의 후 */
+		font-family: Arial, sans-serif;
+	}
+
+	body, html{
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+	}
+
+	/* 메가박스 로고 */
+	.ci a{
+		display: block;
+		width: 150px;
+		height: 53px;
+		background: url(https://img.megabox.co.kr/static/pc/images/common/ci/logo.png) center no-repeat;
+		padding: 0;
+		margin: 0 auto;
+	}
+	/* 메가박스 로고 */
+
+
+	.ci{
+		overflow: hidden;
+		display: block;
+		margin: 0;
+		padding: 0 0 70px 0;
+		text-align: center;
+	}
+
+	/**스탭 부분*/
+
+	.member-wrap{
+		width: 910px;
+		min-height: 100%;
+		margin: 0 auto;
+		padding: 80px 100px;
+		background-color: #fff;
+
+	}
+
+	.col-wrap{
+		overflow: hidden;
+	}
+
+	.member-wrap .step-member ol li:first-child{
+		margin-left: 0;
+	}
+
+	.member-wrap .step-member{
+		overflow: hidden;
+		position: relative;
+		margin: 0 0 40px 0;
+		padding: 0;
+	}
+	.member-wrap .step-member ol {
+    overflow: hidden;
+}
+
+	ol, ul{
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.member-wrap .step-member ol li{
+		float: left;
+		margin: 0 0 0 102px;
+		padding: 0;
+		text-align: center;
+		font-size: .9333em;
+	}
+
+
+	.step-member ol{
+		margin-left: 0;
+	}
+
+.member-wrap .step-member ol li .step.on {
+    border-bottom: 2px solid #503396;
+    color: #503396;
+}
+
+.member-wrap .step-member ol li .step {
+    display: inline-block;
+    position: relative;
+    z-index: 2;
+    margin: 0;
+    padding: 0 0 15px 0;
+    font-size: .9333em;
+    letter-spacing: 0;
+}
+
+.member-wrap .step-member:after {
+    content: '';
+    overflow: hidden;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #ebebeb;
+}
+
+	.member-wrap .page-info-txt{
+		padding: 0 0 20px 0;
+		line-height: 1.1;
+	}
+
+
+	.member-wrap .table-wrap .board-form tr td .button {
+    padding: 0 10px;
+	}
+
+	strong{
+		display: block;
+		padding: 0 0 10px 0;
+		font-size: 1.4em;
+		color: #222;
+		font-weight: 400;
+	}
+
+	.input-text {
+    display: inline-block;
+    height: 32px;
+    padding: 0 10px;
+    line-height: 30px;
+    color: #444;
+    border: 1px solid #d8d9db;
+    vertical-align: middle;
+    width: 300px;
+    margin-right: 10px;
+	}
+
+	.button.gray-line {
+    line-height: 36px;
+    border: 1px solid #c1c1c1;
+    background-color: #fff;
+	}
+
+
+	/* tbody */
+	.table-wrap {
+    position: relative;
+    border-top: 1px solid #555;
+	}
+
+	table {
+    width: 100%;
+    margin: 0;
+    border: 0;
+    table-layout: fixed;
+    border-collapse: collapse;
+    empty-cells: show;
+	}
+
+	table caption {
+    overflow: hidden;
+    width: 0;
+    height: 0;
+    font-size: 0;
+    line-height: 0;
+    opacity: 0;
+	}
+
+
+	element.style {
+    width: 150px;
+	}
+
+	.board-form tbody th {
+    background: #f7f8f9;
+	}
+
+	.board-form tbody td, .board-form tbody th {
+    position: relative;
+    height: 50px;
+    padding: 7px 15px;
+    text-align: left;
+    border-bottom: 1px solid #d1d5dd;
+	}
+
+	tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+	}
+
+	th {
+    font-weight: bold;
+    text-align: -internal-center;
+	}
+	/* end tbody */
+
+
+	/* marketing */
+	.marketing-agree {
+    border-radius: 10px;
+    border: 1px solid #d8d9db;
+	}
+
+	.mt40 {
+    margin-top: 40px!important;
+	}
+
+	.marketing-agree .tit {
+    height: 50px;
+    padding: 0 20px;
+    line-height: 49px;
+    border-bottom: 1px solid #d8d9db;
+    font-size: 1.2em;
+	}
+
+	.member-wrap p {
+    margin: 0;
+    padding: 0;
+	}
+
+	p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+	}
+
+	.marketing-agree .cont {
+    padding: 25px 20px;
+    font-size: .9333em;
+	}
+
+	div {
+    display: block;
+	}
+
+	.marketing-agree dl {
+    overflow: hidden;
+	}
+
+	dd, dl, dt {
+    margin: 0;
+    padding: 0;
+	}
+
+	.marketing-agree dl dt {
+    padding: 0 0 5px 0;
+    color: #222;
+	}
+
+	.marketing-agree dl dd {
+    padding: 0 0 15px 0;
+    color: #666;
+	}
+
+	.marketing-agree .radio-agree {
+    overflow: hidden;
+    height: 48px;
+    margin: 5px 0 0 0;
+    padding: 15px 20px 0 20px;
+    background-color: #f3f4f6;
+    border-radius: 5px;
+	}
+
+	[type=checkbox], [type=radio] {
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+	}
+
+	[type=checkbox], [type=radio] {
+    box-sizing: border-box;
+    padding: 0;
+	}
+
+	button, input {
+    overflow: visible;
+	}
+
+	button, input, optgroup, select, textarea {
+    margin: 0;
+    font-family: inherit;
+    font-size: 1em;
+    line-height: 1.15;
+	}
+
+	label {
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+	}
+
+	.ml20 {
+    margin-left: 20px!important;
+	}
+
+	.member-wrap p {
+    margin: 0;
+    padding: 0;
+	}
+
+	.mt30 {
+    margin-top: 30px!important;
+	}
+
+	.marketing-agree .benefit-agree {
+    overflow: hidden;
+    height: 48px;
+    margin: 5px 0 0 0;
+    padding: 15px 20px 0 20px;
+    background-color: #f3f4f6;
+    border-radius: 5px;
+	}
+
+	/* end marketing */
+
+
+	/* button*/
+	.member-wrap .btn-member-bottom {
+    padding: 40px 0 0 0;
+    text-align: center;
+	}
+
+	.member-wrap .btn-member-bottom .button {
+    width: 120px;
+    height: 46px;
+    padding: 0;
+	}
+
+	.button {
+    display: inline-block;
+    margin: 0;
+    text-align: center;
+    font-weight: 400;
+    border-radius: 4px;
+    border: 0;
+	}
+	/* end button*/
+
+
+	.alert {
+    margin-top: 5px;
+    color: #e81002;
+    font-size: .9333em;
+	}
