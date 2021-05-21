@@ -2,13 +2,14 @@ package goott.spring.project1.controller;
 
 import java.util.List;
 
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import goott.spring.project1.domain.MovieVO;
-import goott.spring.project1.domain.UserinfoVO;
+import goott.spring.project1.domain.UserInfoVO;
 import goott.spring.project1.service.MovieService;
 
 @Controller
@@ -32,7 +33,7 @@ public class MovieController {
 	private MovieService movieservice;
 
 	@GetMapping("/index")
-	public void index(Model model) {
+	public void index(Model model) throws Exception {
 		LOGGER.info("main 화면 호출");
 		List<MovieVO> list;
 		list = movieservice.read();
@@ -42,8 +43,36 @@ public class MovieController {
 
 	@GetMapping("/login")
 	public void login() {
-		LOGGER.info("login 팝업창 호출");
+		LOGGER.info("get-login 팝업창 호출");
 	}
+
+	@PostMapping("/login")
+	public String login(UserInfoVO vo, HttpServletRequest req, RedirectAttributes rttr) throws Exception{
+		LOGGER.info("post-login 접속");
+
+		HttpSession session = req.getSession();
+		UserInfoVO login = movieservice.login(vo);
+//		LOGGER.info("값 확인 : " + login(vo, req, rttr));
+
+		if (login == null) {
+			session.setAttribute("member", null);
+			rttr.addFlashAttribute("msg", false);
+			LOGGER.info("login 실패");
+		} else {
+			session.setAttribute("member", login);
+			LOGGER.info("login 성공");
+		}
+		return "redirect:/movie/login";
+	}
+
+	@GetMapping("/logout")
+	public String logout(HttpSession session) throws Exception{
+
+		session.invalidate();
+
+		return "redirect:/index";
+	}
+
 
 	@GetMapping("/join")
 	public void join() {
@@ -80,7 +109,7 @@ public class MovieController {
 
 	// 회원가입 post
 	@PostMapping("/info-input")
-	public String postRegister(UserinfoVO vo) throws Exception {
+	public String postRegister(UserInfoVO vo) throws Exception {
 		LOGGER.info("회원정보 입력 데이터 삽입");
 		LOGGER.info(vo.toString());
 		int result = movieservice.idChk(vo);
@@ -97,21 +126,18 @@ public class MovieController {
 		return "redirect:/movie/join-complete";
 	}
 
+	// 아이디 중복체크
+	@ResponseBody
+	@RequestMapping(value = "/userIdChk", method = RequestMethod.POST)
+	public int idChk(UserInfoVO vo) throws Exception{
+		int result = movieservice.idChk(vo);
+		return result;
+	}
 
 	@RequestMapping(value = "/join-complete", method = {RequestMethod.GET,RequestMethod.POST})
 	public void joinComple() {
 		LOGGER.info("회원가입 성공화면");
 	}
-
-
-	// 아이디 중복체크
-	@ResponseBody
-	@RequestMapping(value = "/userIdChk", method = RequestMethod.POST)
-	public int idChk(UserinfoVO vo) throws Exception{
-		int result = movieservice.idChk(vo);
-		return result;
-	}
-
 
 
 
