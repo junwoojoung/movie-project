@@ -2,6 +2,8 @@ package goott.spring.project1.persistence;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,6 +49,13 @@ public class MovieDAOImple implements MovieDAO{
 		// 검색이 안 되면 0을 반환해주기 때문에 0과 비교해서 참이면 false, 거짓이면 true를 반환
 		return (result == 0)? false:true;
 
+	}
+
+	@Override
+	public void logOut(HttpSession session) throws Exception {
+		LOGGER.info("로그아웃 기능 처리");
+		session.invalidate();
+		LOGGER.info("세션 삭제 성공");
 	}
 
 }
