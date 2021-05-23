@@ -16,6 +16,8 @@ public interface MovieService {
 
 	public abstract boolean login(UserInfoVO vo,HttpSession session) throws Exception;
 
+	public void logOut(HttpSession session) throws Exception;
+
 
 
 
