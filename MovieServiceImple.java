@@ -45,10 +45,15 @@ public class MovieServiceImple implements MovieService{
 	public boolean login(UserInfoVO vo, HttpSession session) throws Exception {
 		boolean result = dao.login(vo);
 		LOGGER.info("serviceImple 확인 : " + result);
-		if (result = true) {
+		if (result == true) {
 			session.setAttribute("userId", vo.getUserId());
 		}
 		return result;
+	}
+
+	@Override
+	public void logOut(HttpSession session) throws Exception {
+		dao.logOut(session);
 	}
 
 
