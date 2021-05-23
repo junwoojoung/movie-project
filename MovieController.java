@@ -2,22 +2,20 @@ package goott.spring.project1.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import goott.spring.project1.domain.MovieVO;
 import goott.spring.project1.domain.UserInfoVO;
@@ -47,30 +45,35 @@ public class MovieController {
 	}
 
 	@PostMapping("/login")
-	public String login(UserInfoVO vo, HttpServletRequest req, RedirectAttributes rttr) throws Exception{
+	public ModelAndView login(@ModelAttribute UserInfoVO vo, HttpSession session) throws Exception{
 		LOGGER.info("post-login 접속");
+		LOGGER.info("vo : " + vo);
 
-		HttpSession session = req.getSession();
-		UserInfoVO login = movieservice.login(vo);
-//		LOGGER.info("값 확인 : " + login(vo, req, rttr));
+		boolean result = movieservice.login(vo, session);
+		// 화면에서 입력받은 데이터 중에서 id를 통해 select한 회원 정보 변수를 result에 저장 0 또는 1
+		ModelAndView mav = new ModelAndView();
 
-		if (login == null) {
-			session.setAttribute("member", null);
-			rttr.addFlashAttribute("msg", false);
-			LOGGER.info("login 실패");
+		mav.setViewName("/movie/login");
+
+		if (result) {
+			mav.addObject("msg", "성공");
 		} else {
-			session.setAttribute("member", login);
-			LOGGER.info("login 성공");
+			mav.addObject("msg", "실패");
 		}
-		return "redirect:/movie/login";
+
+		return mav;
 	}
 
-	@GetMapping("/logout")
-	public String logout(HttpSession session) throws Exception{
+	@GetMapping("/logOut")
+	public ModelAndView logout(HttpSession session) throws Exception{
 
-		session.invalidate();
+		movieservice.logOut(session);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/movie/login");
+		mav.addObject("msg", "logOut");
 
-		return "redirect:/index";
+		return mav;
+
 	}
 
 
