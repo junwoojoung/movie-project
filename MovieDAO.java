@@ -2,6 +2,8 @@ package goott.spring.project1.persistence;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import goott.spring.project1.domain.MovieVO;
 import goott.spring.project1.domain.UserInfoVO;
 
@@ -17,6 +19,9 @@ public interface MovieDAO {
 
 	// 로그인
 	public abstract boolean login(UserInfoVO vo) throws Exception;
+
+	// 로그아웃
+	public abstract void logOut(HttpSession session) throws Exception;
 
 
 }
