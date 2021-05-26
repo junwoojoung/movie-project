@@ -2,6 +2,7 @@ package goott.spring.project1.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -10,12 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import goott.spring.project1.domain.MovieVO;
 import goott.spring.project1.domain.UserInfoVO;
@@ -29,6 +29,7 @@ public class MovieController {
 
 	@Autowired
 	private MovieService movieservice;
+
 
 	@GetMapping("/index")
 	public void index(Model model) throws Exception {
@@ -45,47 +46,46 @@ public class MovieController {
 	}
 
 	@PostMapping("/login")
-	public ModelAndView login(@ModelAttribute UserInfoVO vo, HttpSession session) throws Exception{
+	@ResponseBody
+	public String login(String userId, String userPw, HttpServletRequest req, RedirectAttributes rttr) {
 		LOGGER.info("post-login 접속");
-		LOGGER.info("vo : " + vo);
+		LOGGER.info("userId : " + userId);
+		LOGGER.info("userPw : " + userPw);
 
-		boolean result = movieservice.login(vo, session);
-		// 화면에서 입력받은 데이터 중에서 id를 통해 select한 회원 정보 변수를 result에 저장 0 또는 1
-		ModelAndView mav = new ModelAndView();
+		HttpSession session = req.getSession();
+		UserInfoVO login = movieservice.login(userId, userPw);
 
-		mav.setViewName("/movie/login");
+		LOGGER.info("login : " + login);
 
-		if (result) {
-			mav.addObject("msg", "성공");
+		if (login == null) {
+			LOGGER.info("login Null");
+			session.setAttribute("member", null);
+			return "fail";
 		} else {
-			mav.addObject("msg", "실패");
+			LOGGER.info("login Not Null");
+			session.setAttribute("member", login);
+			return "success";
 		}
-
-		return mav;
 	}
 
 	@GetMapping("/logOut")
-	public ModelAndView logout(HttpSession session) throws Exception{
+	public String logout(HttpSession session) throws Exception{
 
-		movieservice.logOut(session);
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/movie/login");
-		mav.addObject("msg", "logOut");
+		session.invalidate();
 
-		return mav;
+		return "redirect:/movie/index";
 
 	}
 
 
 	@GetMapping("/join")
 	public void join() {
-		LOGGER.info("회원가입 화면 호출");
+		LOGGER.info("회원가입 화면 호출 test");
 	}
 
-	@RequestMapping("/auth")
-	public String auth() {
+	@GetMapping("/auth")
+	public void auth() {
 		LOGGER.info("실명인증 팝업창 호출");
-		return "movie/auth";
 	}
 
 	@GetMapping("/tos")
@@ -118,6 +118,7 @@ public class MovieController {
 		int result = movieservice.idChk(vo);
 		try {
 			if (result == 1) {
+
 				return "/info-input";
 			} else if (result == 0) {
 				movieservice.register(vo);
@@ -130,8 +131,8 @@ public class MovieController {
 	}
 
 	// 아이디 중복체크
+	@PostMapping("/userIdChk")
 	@ResponseBody
-	@RequestMapping(value = "/userIdChk", method = RequestMethod.POST)
 	public int idChk(UserInfoVO vo) throws Exception{
 		int result = movieservice.idChk(vo);
 		return result;
@@ -143,7 +144,10 @@ public class MovieController {
 	}
 
 
-
+	@GetMapping("/movie-list")
+	public void movie() {
+		LOGGER.info("영화 목록");
+	}
 
 
 
