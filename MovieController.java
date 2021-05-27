@@ -47,7 +47,7 @@ public class MovieController {
 
 	@PostMapping("/login")
 	@ResponseBody
-	public String login(String userId, String userPw, HttpServletRequest req, RedirectAttributes rttr) {
+	public String login(String userId, String userPw, HttpServletRequest req, RedirectAttributes rttr) throws Exception{
 		LOGGER.info("post-login 접속");
 		LOGGER.info("userId : " + userId);
 		LOGGER.info("userPw : " + userPw);
@@ -149,6 +149,26 @@ public class MovieController {
 		LOGGER.info("영화 목록");
 	}
 
+	@GetMapping("/mypage")
+	public void myPage() {
+		LOGGER.info("get : 내정보 확인 페이지");
+	}
+
+	@GetMapping("/info-update")
+	public void memberUpdate() throws Exception{
+		LOGGER.info("get : 회원정보 수정 페이지");
+	}
+
+	@PostMapping("/info-update")
+	public String memberUpdate(UserInfoVO vo, HttpSession session) throws Exception {
+		LOGGER.info("post : 회원정보 수정 페이지");
+		LOGGER.info("Controller : " + vo.toString());
+		movieservice.memberUpdate(vo);
+
+		session.invalidate();
+
+		return "redirect:/movie/index";
+	}
 
 
 }
