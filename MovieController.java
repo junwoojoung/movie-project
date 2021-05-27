@@ -170,5 +170,36 @@ public class MovieController {
 		return "redirect:/movie/index";
 	}
 
+	@GetMapping("info-delete")
+	public void memberDelete() {
+		LOGGER.info("get : 회원정보 삭제 페이지");
+	}
+
+	@PostMapping("info-delete")
+	public String memberDelete(UserInfoVO vo, HttpSession session, RedirectAttributes rttr) throws Exception {
+		LOGGER.info("post : 회원정보 삭제 페이지");
+		LOGGER.info(vo.toString());
+
+		// 세션에 있는 member를 가져와 member 변수에 넣는다
+		UserInfoVO member = (UserInfoVO) session.getAttribute("member");
+		// 세션에 있는 비밀번호
+		String sessionPw = member.getUserPw();
+		// vo로 들어오는 비밀번호
+		String voPw = vo.getUserPw();
+		LOGGER.info("세션 비밀번호 : " + sessionPw);
+		LOGGER.info("vo 비밀번호 : " + voPw);
+
+		if (!(sessionPw.equals(voPw))) {
+			rttr.addFlashAttribute("msg", false);
+			return "redirect:/movie/info-delete";
+		}
+
+		movieservice.memberDelete(vo);
+
+		session.invalidate();
+
+		return "redirect:/movie/index";
+	}
+
 
 }
