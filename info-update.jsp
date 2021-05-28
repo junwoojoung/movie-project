@@ -169,27 +169,44 @@
 	/* end tbody */
 
 
-
-	/* button*/
-	.member-wrap .btn-member-bottom {
-    padding: 40px 0 0 0;
-    text-align: center;
+	/* button */
+	.btn-member-bottom{
+	text-align: center;
+	padding: 20px;
 	}
 
-	.member-wrap .btn-member-bottom .button {
-    width: 120px;
-    height: 46px;
-    padding: 0;
-	}
-
-	.button {
+	.cencle-btn {
     display: inline-block;
     margin: 0;
+    padding: 0 30px;
     text-align: center;
+    line-height: 44px;
+    color: #503396;
     font-weight: 400;
     border-radius: 4px;
-    border: 0;
+    text-decoration: none;
+    border: 1px solid #503396;
+    vertical-align: middle;
+    background-color: #fff;
+    cursor: pointer;
 	}
+
+	.update-btn {
+     display: inline-block;
+    margin: 0 0 0 10px;
+    padding: 0 30px;
+    text-align: center;
+    line-height: 46px;
+    color: #fff;
+    font-weight: 400;
+    border-radius: 4px;
+    text-decoration: none;
+    border: 0px;
+    vertical-align: middle;
+    background-color: #503396;
+    cursor: pointer;
+	}
+
 	/* end button*/
 
 
@@ -199,6 +216,12 @@
     font-size: .9333em;
 	}
 
+	.pwChk {
+	border-radius: 4px;
+	line-height: 36px;
+    border: 1px solid #c1c1c1;
+    background-color: #fff;
+	}
 
 </style>
 
@@ -225,7 +248,8 @@
 			개인정보 수정
 		</strong>
 		<span>
-			회원님의 정보를 정확히 입력해주세요.
+			회원님의 개인정보 보호를 위해 비밀번호 확인 절차를 진행해야 합니다.<br>
+			비밀번호 확인을 먼저 진행해 주시기 바랍니다
 		</span>
 	</p>
 
@@ -262,7 +286,9 @@
 				<tr>
 					<th scope="row">비밀번호</th>
 					<td>
-						<input  type="password"  id="userPw" name="userPw" placeholder="영문,숫자,특수기호를 모두 조합" class="input-text w260px" value="${member.userPw }" maxlength="16">
+						<input  type="password"  id="userPw" name="userPw" class="input-text w260px" maxlength="16">
+<!-- 						<label style="color: red;">※정보 수정을 위해 필수 입력</label> -->
+						<button type="button" id="pwChk" class="pwChk" value="N">비밀번호 확인</button>
 					</td>
 				</tr>
 
@@ -278,8 +304,8 @@
 	<!-- end table-wrap -->
 
 	<div class="btn-member-bottom">
-		<button id="back" type="button" class="button">취소</button>
-		<button id="updateBtn" type="button" class="button">등록</button>
+		<button id="cencle-Btn" type="button" class="cencle-btn">취소</button>
+		<button id="update-Btn" type="button" class="update-btn">수정</button>
 	</div>
 	</div> <!-- end col -->
 	</div> <!-- end col-wrap -->
@@ -293,59 +319,90 @@
 <script type="text/javascript">
 
 	$(document).ready(function(){
+		$('#update-Btn').click(function(){
+		// 이름
+		var nameCheck = /^[가-힣]+$/;
 
-		// 수정 버튼
-		$('#updateBtn').click(function(){
-			// 이름
-			var nameCheck = /^[가-힣]+$/;
+		// 전화번호 유효성 검사
+		var phoneCheck = /^[0-9]{2,3}[0-9]{3,4}[0-9]{4}/;
 
-			// 전화번호 유효성 검사
-			var phoneCheck = /^[0-9]{2,3}[0-9]{3,4}[0-9]{4}/;
+		// 특수문자 / 문자 / 숫자 포함 형태의 8 - 15자리 이내의 암호 정규식
+		var pwCheck = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
 
-			// 특수문자 / 문자 / 숫자 포함 형태의 8 - 15자리 이내의 암호 정규식
-			var pwCheck = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
-
-			// 이메일
-			var emailCheck = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+		// 이메일
+		var emailCheck = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
 
 
-  			if (!nameCheck.test($('#userName').val())){
-  				alert('올바른 이름을 입력해주세요.');
- 				$('#userName').val('');
- 				$('#userName').focus();
- 				return false;
- 			}
+  		if (!nameCheck.test($('#userName').val())){
+  			alert('올바른 이름을 입력해주세요.');
+			$('#userName').val('');
+ 			$('#userName').focus();
+ 			return false;
+ 		}
 
-			if (!phoneCheck.test($('#userPhone').val())) {
-	        	alert('유효하지 않은 전화번호 이거나 형식에 맞지 않습니다.');
-				$('#userPhone').val('');
-	        	$('#userPhone').focus();
-	        	return false;
-	        }
+		if (!phoneCheck.test($('#userPhone').val())) {
+	       	alert('유효하지 않은 전화번호 이거나 형식에 맞지 않습니다.');
+			$('#userPhone').val('');
+	       	$('#userPhone').focus();
+	       	return false;
+	    }
 
-			if (!pwCheck.test($('#userPw').val())){
-				alert('비밀번호는 영문,숫자,특수기호를 모두 조합하여 8자리 이상 15자리 이하입니다.');
-				$('#userPw').val('');
+		if (!emailCheck.test($('#userEmail').val())){
+			alert('올바른 이메일 형식으로 입력해주세요.');
+			$('#userEmail').val('');
+			$('#userEmail').focus();
+			return false;
+		}
+
+		var pwChk = $('#pwChk').val();
+		if (pwChk == 'N') {
+			alert('비밀번호 확인을 진행해주세요.');
+			return false;
+		} else if (pwChk == 'Y' && !pwCheck.test($('#userPw').val())){
+			alert('비밀번호는 영문,숫자,특수기호를 모두 조합하여 8자리 이상 15자리 이하입니다.');
+			$('#userPw').val('');
+			$('#userPw').focus();
+			return false;
+		}
+
+		alert('회원정보 수정 완료\n로그인 후 다시 이용해 주세요.');
+		$('#updateForm').submit();
+
+		}); // end update-btn.click
+
+		// 취소
+		$('#cencle-Btn').on('click', function(){
+			location.href='/project1/movie/mypage';
+		});
+
+		$('#pwChk').on("click", function(){
+			if ($('userPw').val() == '') {
+				alert('비밀번호를 입력해주세요.');
 				$('#userPw').focus();
 				return false;
 			}
 
-			if (!emailCheck.test($('#userEmail').val())){
-				alert('올바른 이메일 형식으로 입력해주세요.');
-				$('#userEmail').val('');
-				$('#userEmail').focus();
-				return false;
-			}
+			$.ajax({
+				url : '/project1/movie/pwChk',
+				type : 'post',
+				dataType : 'json',
+				data : $('#updateForm').serializeArray(),
+				success : function(data) {
 
+					if(data == 1){
+						alert("비밀번호 확인이 완료되었습니다.\n 회원님의 정보를 변경하십시오.");
+						$('#pwChk').attr('value', 'Y');
+					}else{
+						alert("패스워드가 틀렸습니다.");
+						return;
 
-			alert('회원정보 수정 완료\n로그인 후 다시 이용해 주세요.');
-			$('#updateForm').submit();
+					}
+				}
 
-		}); // end #btnJoin.click
+			}); // end ajax
 
-		$('#back').click(function(){
-			window.history.back();
-		}); // end back.click
+		}); // end pwChk.click
+
 
 	});// end document
 </script>
