@@ -76,10 +76,6 @@
 	}
 
 
-
-
-
-
 	.member-wrap .page-info-txt{
 		padding: 0 0 20px 0;
 		line-height: 1.1;
@@ -101,106 +97,127 @@
 	}
 
 	.input-text {
-    display: inline-block;
-    height: 32px;
-    padding: 0 10px;
-    line-height: 30px;
-    color: #444;
-    border: 1px solid #d8d9db;
-    vertical-align: middle;
-    width: 300px;
-    margin-right: 10px;
+	    display: inline-block;
+	    height: 32px;
+	    padding: 0 10px;
+	    line-height: 30px;
+	    color: #444;
+	    border: 1px solid #d8d9db;
+	    vertical-align: middle;
+	    width: 300px;
+	    margin-right: 10px;
 	}
 
 	.button.gray-line {
-    line-height: 36px;
-    border: 1px solid #c1c1c1;
-    background-color: #fff;
+	    line-height: 36px;
+	    border: 1px solid #c1c1c1;
+	    background-color: #fff;
 	}
 
 
 	/* tbody */
 	.table-wrap {
-    position: relative;
-    border-top: 1px solid #555;
+	    position: relative;
+	    border-top: 1px solid #555;
 	}
 
 	table {
-    width: 100%;
-    margin: 0;
-    border: 0;
-    table-layout: fixed;
-    border-collapse: collapse;
-    empty-cells: show;
+	    width: 100%;
+	    margin: 0;
+	    border: 0;
+	    table-layout: fixed;
+	    border-collapse: collapse;
+	    empty-cells: show;
 	}
 
 	table caption {
-    overflow: hidden;
-    width: 0;
-    height: 0;
-    font-size: 0;
-    line-height: 0;
-    opacity: 0;
+	    overflow: hidden;
+	    width: 0;
+	    height: 0;
+	    font-size: 0;
+	    line-height: 0;
+	    opacity: 0;
 	}
 
 
 	element.style {
-    width: 150px;
+    	width: 150px;
 	}
 
 	.board-form tbody th {
-    background: #f7f8f9;
+    	background: #f7f8f9;
 	}
 
 	.board-form tbody td, .board-form tbody th {
-    position: relative;
-    height: 50px;
-    padding: 7px 15px;
-    text-align: left;
-    border-bottom: 1px solid #d1d5dd;
+	    position: relative;
+	    height: 50px;
+	    padding: 7px 15px;
+	    text-align: left;
+	    border-bottom: 1px solid #d1d5dd;
 	}
 
 	tr {
-    display: table-row;
-    vertical-align: inherit;
-    border-color: inherit;
+	    display: table-row;
+	    vertical-align: inherit;
+	    border-color: inherit;
 	}
 
 	th {
-    font-weight: bold;
-    text-align: -internal-center;
+	    font-weight: bold;
+	    text-align: -internal-center;
 	}
 	/* end tbody */
 
+	/* button */
 
-
-	/* button*/
-	.member-wrap .btn-member-bottom {
-    padding: 40px 0 0 0;
-    text-align: center;
+	.btn-member-bottom{
+		text-align: center;
+		padding: 20px;
 	}
 
-	.member-wrap .btn-member-bottom .button {
-    width: 120px;
-    height: 46px;
-    padding: 0;
+	.cencle-btn {
+	    display: inline-block;
+	    margin: 0;
+	    padding: 0 30px;
+	    text-align: center;
+	    line-height: 44px;
+	    color: #503396;
+	    font-weight: 400;
+	    border-radius: 4px;
+	    text-decoration: none;
+	    border: 1px solid #503396;
+	    vertical-align: middle;
+	    background-color: #fff;
+	    cursor: pointer;
 	}
 
-	.button {
-    display: inline-block;
-    margin: 0;
-    text-align: center;
-    font-weight: 400;
-    border-radius: 4px;
-    border: 0;
+	.delete-btn{
+	    display: inline-block;
+	    margin: 0 0 0 10px;
+	    padding: 0 30px;
+	    text-align: center;
+	    line-height: 46px;
+	    color: #fff;
+	    font-weight: 400;
+	    border-radius: 4px;
+	    text-decoration: none;
+	    border: 0px;
+	    vertical-align: middle;
+	    background-color: #503396;
+	    cursor: pointer;
 	}
+
 	/* end button*/
 
 
 	.alert {
-    margin-top: 5px;
-    color: #e81002;
-    font-size: .9333em;
+	    margin-top: 5px;
+	    color: #e81002;
+	    font-size: .9333em;
+	}
+
+	.table-interval{
+		padding-top: 40px;
 	}
 
 
@@ -214,9 +231,6 @@
 
 <body class="bg-member">
 <form id="deleteForm" method="post" action="/project1/movie/info-delete">
-
-
-	<!-- 로고 및 각 STEP 표시 -->
 	<div class="member-wrap">
 		<h1 class="ci">
 			<a href="/project1/movie/index" title="메인 페이지로 이동" ></a>
@@ -250,6 +264,7 @@
 						</div>
 					</td>
 				</tr>
+
 				<tr>
 					<th scope="row">생년월일</th>
 					<td>
@@ -267,19 +282,6 @@
 						</div>
 					</td>
 				</tr>
-
-				<tr>
-					<th scope="row">아이디</th>
-					<td>
-							<input type="text" id="userId" name="userId" class="input-text w260px" value="${member.userId }" readonly="readonly">
-					</td>
-				</tr>
-				<tr>
-					<th scope="row">비밀번호</th>
-					<td>
-						<input  type="password"  id="userPw" name="userPw" class="input-text w260px">
-					</td>
-				</tr>
 				<tr>
 					<th scope="row">이메일 주소</th>
 					<td>
@@ -291,26 +293,39 @@
 			</tbody>
 		</table>
 	</div>
+	<div class="table-interval">
+		<p style="color: red;">※회원님의 아이디와 비밀번호를 입력해주세요.</p>
+	</div>
+	<div class="table-wrap">
+		<table class="board-form">
+			<tbody>
+				<tr>
+					<th scope="row">아이디</th>
+					<td>
+						<input type="text" id="userId" name="userId" class="input-text w260px" value="${member.userId }" readonly="readonly">
+					</td>
+				</tr>
+				<tr>
+					<th scope="row">비밀번호</th>
+					<td>
+						<input  type="password"  id="userPw" name="userPw" class="input-text w260px">
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
 	<!-- end table-wrap -->
 
-	<div>
-		<c:if test="${msg eq false }">
-			<p style="color: red;">비밀번호가 맞지 않습니다.</p>
-		</c:if>
-	</div>
-
-
 	<div class="btn-member-bottom">
-		<button id="back" type="button" class="button">취소</button>
-		<button id="deleteBtn" type="button" class="button">삭제</button>
+		<button id="cencle-btn" type="button" class="cencle-btn">취소</button>
+		<button id="delete-btn" type="button" class="delete-btn">삭제</button>
 	</div>
 	</div> <!-- end col -->
 	</div> <!-- end col-wrap -->
 
-
 	</div>
 	<!-- end member-wrap -->
-	<!-- 로고 및 각 STEP 표시 끝 -->
 </form>
 
 <script type="text/javascript">
@@ -355,15 +370,41 @@
 		phone = phone.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3");
 		$('#return-phone').html(phone);
 
-		$('#deleteBtn').click(function(){
-			alert('회원정보 삭제 완료');
-			$('#deleteForm').submit();
 
-		}); // end deleteBtn.click
+		// 취소
+		$('.cencle-btn').on('click', function(){
+			location.href='/project1/movie/mypage';
+		});
 
-		$('#back').click(function(){
-			window.history.back();
-		}); // end back.click
+		$('#delete-btn').on("click", function(){
+			if ($('userPw').val() == '') {
+				alert('비밀번호를 입력해주세요.');
+				$('#userPw').focus();
+				return false;
+			}
+
+			$.ajax({
+				url : '/project1/movie/pwChk',
+				type : 'post',
+				dataType : 'json',
+				data : $('#deleteForm').serializeArray(),
+				success : function(data) {
+
+					if (data == 0) {
+						alert('패스워드가 틀렸습니다.');
+						$('#userPw').val('');
+						$('#userPw').focus();
+						return;
+					} else {
+						if (confirm('회원탈퇴를 하시겠습니까?')) {
+							$('#deleteForm').submit();
+						}
+					}
+				}
+
+			});
+
+		}); // end delete-btn click
 
 	});// end document
 </script>
