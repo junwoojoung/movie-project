@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import goott.spring.project1.domain.MovieVO;
+import goott.spring.project1.domain.ScreeningMovieVO;
 import goott.spring.project1.domain.TheaterVO;
 import goott.spring.project1.domain.UserInfoVO;
 import goott.spring.project1.service.MovieService;
@@ -52,14 +53,17 @@ public class MovieController {
 		List<MovieVO> allList;
 		allList = movieservice.AllmovieList();
 		model.addAttribute("allList", allList);
-
-		LOGGER.info("상영관 정보 가져오기");
+		LOGGER.info("상영관 정보");
 
 		List<TheaterVO> theater;
 		theater = movieservice.theaterList();
 		LOGGER.info("상영관 정보" + theater);
 		model.addAttribute("theater", theater);
 
+		List<ScreeningMovieVO> screeningMovie;
+		screeningMovie = movieservice.movieTime();
+		LOGGER.info("상영 시간" + screeningMovie);
+		model.addAttribute("screeningMovie",screeningMovie);
 	}
 
 
@@ -148,7 +152,6 @@ public class MovieController {
 		int result = movieservice.idChk(vo);
 		try {
 			if (result == 1) {
-
 				return "/info-input";
 			} else if (result == 0) {
 				String inputPw = vo.getUserPw();
