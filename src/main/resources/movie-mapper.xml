@@ -4,28 +4,82 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goott.spring.project1.MovieMapper">
 
+	<!-- 1~4위 영화 리스트 -->
 	<select id="select" resultType="MovieVO">
-		select * from(select * from ${movie} order by ${audCount} desc)
-		where rownum <![CDATA[ <= ]]> 4 <!-- 그냥 <=로 쓸 경우 태그의 시작으로 인식 -> 오류 -->
+		select *
+		  from(select * from ${movie} order by ${audCount} desc)
+		 where rownum <![CDATA[ <= ]]> 4 <!-- 그냥 <=로 쓸 경우 태그의 시작으로 인식 -> 오류 -->
 	</select>
 
-	<insert id="insert">
+	<!-- 모든 영화 목록 -->
+	<select id="allSelect" resultType="MovieVO">
+		select *
+		  from ${movie}
+	</select>
+
+	<!-- 상영관 정보 -->
+	<select id="theater" resultType="TheaterVO">
+		select *
+		  from ${theater}
+	</select>
+
+	<!-- 상영 시간 -->
+	<select id="screening" resultType="ScreeningMovieVO">
+		select *
+		  from ${screeningMovie}
+	</select>
+
+	<!-- 포스터 값 가져오기 -->
+	<select id="getPoster" resultType="MovieVO">
+		select ${movieId}
+		  from ${movie}
+		 where ${movieName} = #{movieName}
+	</select>
+
+	<!-- 회원정보 삽입 -->
+	<insert id="memberInsert">
 		insert into ${userInfo}
  		values (#{userId}, #{userName}, #{userPw}, #{userPhone}, #{userEmail}, #{ssnFront}, #{ssnBack}, default)
 	</insert>
 
-
 	<!-- 아이디 중복 확인 -->
 	<select id="idChk" resultType="int">
-		select count(*) from ${userInfo}
-		where ${userId} = #{userId}
+		select count(*)
+		  from ${userInfo}
+		 where ${userId} = #{userId}
 	</select>
 
 	<!-- 로그인 -->
- 	<select id="login" resultType="Integer">
- 		select count(*) from ${userInfo}
- 		where ${userId} = #{userId}
- 		and ${userPw} = #{userPw}
+ 	<select id="login" resultType="UserInfoVO">
+ 		select * from ${userInfo}
+ 		 where ${userId} = #{userId}
+<!--  		 and ${userPw} = #{userPw} -->
   	</select>
+
+  	<!-- 회원정보 수정 -->
+  	<update id="memberUpdate">
+  		update ${userInfo} set
+  		${userName} = #{userName},
+<!--   		${userPw} = #{userPw}, -->
+  		${userPhone} = #{userPhone},
+  		${userEmail} = #{userEmail}
+  		where ${userId} = #{userId}
+  	</update>
+
+  	<!-- 회원정보 삭제 -->
+  	<delete id="memberDelete">
+  		delete from ${userInfo}
+  		 where ${userId} = #{userId}
+<!--   		   and ${userPw} = #{userPw}		 -->
+  	</delete>
+
+  	<!-- 비밀번호 체크 -->
+	<select id="pwChk" resultType="int">
+		select count(*)
+		  from ${userInfo}
+		 where ${userId} = #{userId}
+		   and ${userPw} = #{userPw}
+	</select>
+
 
 </mapper>
