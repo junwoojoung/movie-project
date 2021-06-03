@@ -7,7 +7,7 @@
 
 	.movie-choice-area {
 	    overflow: hidden;
-	    width: 1200px;
+	    width: 1400px;
 	    height: 300px;
 	    margin: 0;
 	    border: 3px solid #686571;
@@ -103,9 +103,9 @@
 	}
 
 
-	img{
-		display: none;
-	}
+/* 	img{ */
+/* 		display: none; */
+/* 	} */
 
 	.right{
 		float: right;
@@ -152,9 +152,7 @@
 	            	</ul>
 				</c:forEach>
 					<div class="rigth">
-						<img class="show-img1" src="../resources/image/M001.jpg" style="width: 194px" height="250px"><!-- 비와 당신의 이야기 -->
-						<img class="show-img2" src="../resources/image/M003.jpg" style="width: 194px" height="250px"><!-- 아이들은 즐겁다 -->
-						<input type="text" class="movie-name">
+							<img class="get-poster" width="194" height="100%">
 					</div>
 			</div>
 			<!-- end movie-list -->
@@ -187,7 +185,12 @@
 	</div>
 	<!-- end movie-choice-area -->
 
-
+	<!--
+	계획
+	ajax를 통해 컨트롤러에 접근하여 userName이 크루엘라 라는 것이 조회가 된다면 그 포스터를 반환하고
+	크루엘라의 1.상영관 DB, 2.상영중인 영화 DB에 접근하여 1.에서 지역과 지점명을 받고
+	2.에서 상영 시간, 총좌석, 예약좌석을 출력한다.
+	 -->
 <script>
 
         $(document).ready(function(){
@@ -214,19 +217,40 @@
         		$('.movie-choice').removeClass('active');
         		$(this).addClass('active');
 
-        		var btn = $(this).val();
-        		console.log(btn);
-        		$('.movie-name').val(btn);
+        		var selectMoiveName = $(this).val();
+        		console.log(selectMoiveName);
 
-        		if ($('.movie-name').val() == '비와 당신의 이야기') {
-        			$('img').hide();
-        			$('.show-img1').show();
-        		}
+        		$.ajax({
+        			type : 'post',
+        			 url : '/project1/movie/running-time',
+        			data : {'movieName' : selectMoiveName},
+        			success : function(data) {
+        				console.log(data);
+        				if (data != null) {
+        					alert('movieId 값 가져오기 성공');
+        					$('.get-poster').attr('src', '../resources/image/' + data + '.jpg');
+        				} else {
+        					alert('movieId 가져오기 실패');
+        				}
+        			}
 
-        		if ($('.movie-name').val() == '아이들은 즐겁다') {
-        			$('img').hide();
-        			$('.show-img2').show();
-        		}
+        		}); // end ajax
+
+
+
+
+
+//         		$('.movie-name').val(btn);
+
+//         		if ($('.movie-name').val() == '비와 당신의 이야기') {
+//         			$('img').hide();
+//         			$('.show-img1').show();
+//         		}
+
+//         		if ($('.movie-name').val() == '아이들은 즐겁다') {
+//         			$('img').hide();
+//         			$('.show-img2').show();
+//         		}
 
 
 
