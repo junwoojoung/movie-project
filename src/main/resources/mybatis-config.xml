@@ -6,11 +6,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 <!-- DB 테이블과 컬럼들을 mapper 매핑을 위한 변수 선언-->
 
 	<properties>
-		<!--
-		* property
-		- name : mapper.xml에서 사용될 이름
-		- value : DB 테이블 및 컬럼 이름
-		 -->
+		<!-- 영화정보 테이블-->
 		 <property name="movie" value="MOVIE"/>
 		 <property name="movieId" value="MOVIE_ID"/>
 		 <property name="ageLimit" value="AGE_LIMIT"/>
@@ -21,13 +17,43 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		 <property name="releaseDate" value="RELEASE_DATE"/>
 		 <property name="movieCast" value="MOVIE_CAST"/>
 		 <property name="audCount" value="AUD_COUNT"/>
+
+		<!-- 회원정보 테이블-->
+		 <property name="userInfo" value="USER_INFO"/>
+		 <property name="userId" value="USER_ID"/>
+		 <property name="userName" value="USER_NAME"/>
+		 <property name="userPw" value="USER_PW"/>
+		 <property name="userPhone" value="USER_PHONE"/>
+		 <property name="userEmail" value="USER_EMAIL"/>
+		 <property name="ssnFront" value="SSN_FRONT"/>
+		 <property name="ssnBack" value="SSN_BACK"/>
+		 <property name="userJoin" value="USER_JOIN"/>
+
+		 <!-- 상영관 테이블 -->
+		 <property name="theater" value="THEATER"/>
+		 <property name="theaterId" value="THEATER_ID"/>
+		 <property name="movieId" value="MOVIE_ID"/>
+		 <property name="area" value="AREA"/>
+		 <property name="theaterName" value="THEATER_NAME"/>
+
+		 <!-- 상영중인 영화 테이블 -->
+		 <property name="screeningMovie" value="SCREENING_MOVIE"/>
+		 <property name="screeningId" value="SCREENING_ID"/>
+		 <property name="movieId" value="MOVIE_ID"/>
+		 <property name="theaterId" value="THEATER_ID"/>
+		 <property name="movieTime" value="MOVIE_TIME"/>
+		 <property name="movieDate" value="MOIVE_DATE"/>
+		 <property name="totalSeat" value="TOTAL_SEAT"/>
+		 <property name="reservedSeat" value="RESERVED_SEAT"/>
+
 	</properties>
+
+
 
 	<!-- Underscore 명명법을 Camel 명명법으로 매핑 -->
 	<settings>
 		<setting name="mapUnderscoreToCamelCase" value="true"/>
 	</settings>
-
 
 	<!--  typeAliases : mapper.xml의 select 리턴 타입에 들어갈 클래스 경로를 설정 -->
 	 <typeAliases>
