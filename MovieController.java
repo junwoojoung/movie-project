@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import goott.spring.project1.domain.MovieVO;
-import goott.spring.project1.domain.ScreeningMovieVO;
+import goott.spring.project1.domain.RunningTimeVO;
 import goott.spring.project1.domain.TheaterVO;
 import goott.spring.project1.domain.UserInfoVO;
 import goott.spring.project1.service.MovieService;
@@ -45,26 +45,50 @@ public class MovieController {
 		model.addAttribute("list", list);
 	}
 
-	// 모든 영화 목록 get
+	// 상영 시간표 get
 	@GetMapping("/running-time")
 	public void movie_list(Model model) throws Exception {
-		LOGGER.info("모든 영화 목록 가져오기");
 
+		// 영화별 클릭 시 모든 영화 목록을 출력해주기 위함
 		List<MovieVO> allList;
 		allList = movieservice.AllmovieList();
+//		LOGGER.info("영화 정보" + allList);
 		model.addAttribute("allList", allList);
-		LOGGER.info("상영관 정보");
 
+		// 극장별 클릭 시 모든 극장에 대한 목록을 출력해주기 위함
 		List<TheaterVO> theater;
 		theater = movieservice.theaterList();
-		LOGGER.info("상영관 정보" + theater);
+//		LOGGER.info("상영관 정보" + theater);
 		model.addAttribute("theater", theater);
 
-		List<ScreeningMovieVO> screeningMovie;
-		screeningMovie = movieservice.movieTime();
-		LOGGER.info("상영 시간" + screeningMovie);
-		model.addAttribute("screeningMovie",screeningMovie);
 	}
+
+	// 상영 시간표 (영화 정보 가져오기) post
+	@PostMapping("/movie-info")
+	@ResponseBody
+	public String movie_list(String movieName) throws Exception {
+		LOGGER.info("영화 이름 : " + movieName);
+
+		MovieVO poster = movieservice.getPoster(movieName);
+		LOGGER.info("아이디 반환 값 : " + poster.getMovieId());
+		String posterData = poster.getMovieId();
+		return posterData;
+
+//		LOGGER.info("선택한 날짜 값 : " + selectData);
+	}
+
+
+	// 상영 시간표 (상영중인 영화, 상영관 정보 가져오기) post
+	@PostMapping("/running-time")
+	@ResponseBody
+	public void screeningMovie(String selectData) throws Exception {
+		LOGGER.info("가져온 날짜 값 : " + selectData);
+
+
+		List<RunningTimeVO> info = movieservice.runningTimeInfo(selectData);
+		LOGGER.info("Controller : " + info);
+	}
+
 
 
 	// 로그인 get
