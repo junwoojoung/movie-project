@@ -23,18 +23,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  from ${theater}
 	</select>
 
-	<!-- 상영 시간 -->
-	<select id="screening" resultType="ScreeningMovieVO">
-		select *
-		  from ${screeningMovie}
-	</select>
-
 	<!-- 포스터 값 가져오기 -->
 	<select id="getPoster" resultType="MovieVO">
 		select ${movieId}
 		  from ${movie}
 		 where ${movieName} = #{movieName}
 	</select>
+
+	<!-- 상영중인 영화, 지점 정보 -->
+ 	<select id="runningTime" resultType="RunningTimeVO">
+		select *
+		  from ${screeningMovie},
+		  	(select ${theaterName}, ${area}
+		  	   from ${theater})
+		 where #{selectData} <![CDATA[ < ]]> ${endDate}
+ 	</select>
 
 	<!-- 회원정보 삽입 -->
 	<insert id="memberInsert">
