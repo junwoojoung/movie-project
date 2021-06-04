@@ -6,8 +6,9 @@
 <style type="text/css">
 
 	.movie-choice-area {
+		align-items:center;
 	    overflow: hidden;
-	    width: 1400px;
+	    width: 1100px;
 	    height: 300px;
 	    margin: 0;
 	    border: 3px solid #686571;
@@ -37,6 +38,24 @@
 	    font-family: NanumBarunGothic,Dotum,'돋움',sans-serif;
 	}
 
+	.movie-part {
+	    padding: 0 240px 0 0;
+	}
+
+
+	.get-poster{
+	border-radius: 4px;
+	position: absolute;
+    left: 865px;
+    top: 10px;
+    height: 297px;
+    width: 242px;
+    padding: 0;
+	}
+
+
+
+
 	.tab-left-area {
 	    float: left;
 	    width: 200px;
@@ -55,14 +74,14 @@
 	    background-repeat: no-repeat;
 	}
 
-	.movie-title, .theater-title{
+	.movie-title, .theater-title {
 		color: #555;
     	border-bottom: 2px solid #555;
 		font-weight: 800;
 	}
 
 
-	.movie-choice{
+	.movie-choice {
 		border: 0;
         width: 200px;
 		height: 30px;
@@ -70,20 +89,20 @@
 		background-color: #fff;
       }
 
-	.movie-list-btn, .theater-list-btn{
+	.movie-list-btn, .theater-list-btn {
         width: 200px;
 	 	height: 147px;
  		background-color: #fff;
  		border: 1px solid #d8d9db;
        }
 
-	    .area-choice{
+	    .area-choice {
     	width: 70px;
     	height: 38px;
     	background-color: #fff;
     }
 
-	.hide-name{
+	.hide-name {
 		display: flex;
 		border: 0;
 		width: 200px;
@@ -92,37 +111,44 @@
 	}
 
 
-	.active{
+	.active {
 		background-color: #666;
 		color: #fff;
 	}
 
 
-	.active2{
+	.active2 {
 		background-color: #f2f4f5;
 	}
 
 
-/* 	img{ */
-/* 		display: none; */
-/* 	} */
-
-	.right{
-		float: right;
-		padding-left: 1070px;
-	}
-
-	.list{
-    display: block;
-    float: left;
+	.list {
+	    display: block;
+	    float: left;
 	}
 
 	.ol, ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
+	    list-style-type: none;
+	    margin: 0;
+	    padding: 0;
+	}
 
+	.mt60 {
+    	margin-top: 60px!important;
+	}
+
+	.tit {
+		line-height: 44px;
+		margin: 0;
+	    padding: 0 0 16px 0;
+	    font-size: 1.6em;
+	    font-weight: 400;
+	    color: #503396;
+	}
+
+	.movie-name {
+		color: #037b94!important;
+	}
 
 </style>
 <head>
@@ -152,7 +178,7 @@
 	            	</ul>
 				</c:forEach>
 					<div class="rigth">
-							<img class="get-poster" width="194" height="100%">
+							<img class="get-poster">
 					</div>
 			</div>
 			<!-- end movie-list -->
@@ -180,17 +206,20 @@
 
 		</div>
 		<!-- end theater-part -->
-
-
 	</div>
 	<!-- end movie-choice-area -->
 
-	<!--
-	계획
-	ajax를 통해 컨트롤러에 접근하여 userName이 크루엘라 라는 것이 조회가 된다면 그 포스터를 반환하고
-	크루엘라의 1.상영관 DB, 2.상영중인 영화 DB에 접근하여 1.에서 지역과 지점명을 받고
-	2.에서 상영 시간, 총좌석, 예약좌석을 출력한다.
-	 -->
+	<h3 class="tit mt60">
+		<span class="movie-name"><!-- 선택한 영화 이름 가져오기 --></span> 상영시간표
+	</h3>
+
+	<div class="date">
+	 	<input type="date" class="select-date">
+		<button onclick="dateChk()">선택</button>
+
+ 		<input type="text" id="getData">
+    </div>
+
 <script>
 
         $(document).ready(function(){
@@ -211,7 +240,6 @@
         	}); // end theater-list-btn
 
 
-
         	// 영화 선택
         	$('.movie-choice').click(function(){
         		$('.movie-choice').removeClass('active');
@@ -219,15 +247,16 @@
 
         		var selectMoiveName = $(this).val();
         		console.log(selectMoiveName);
+         		$('.movie-name').html(selectMoiveName);
 
         		$.ajax({
         			type : 'post',
-        			 url : '/project1/movie/running-time',
+        			 url : '/project1/movie/movie-info',
         			data : {'movieName' : selectMoiveName},
         			success : function(data) {
         				console.log(data);
         				if (data != null) {
-        					alert('movieId 값 가져오기 성공');
+        					// alert('movieId 값 가져오기 성공');
         					$('.get-poster').attr('src', '../resources/image/' + data + '.jpg');
         				} else {
         					alert('movieId 가져오기 실패');
@@ -235,29 +264,7 @@
         			}
 
         		}); // end ajax
-
-
-
-
-
-//         		$('.movie-name').val(btn);
-
-//         		if ($('.movie-name').val() == '비와 당신의 이야기') {
-//         			$('img').hide();
-//         			$('.show-img1').show();
-//         		}
-
-//         		if ($('.movie-name').val() == '아이들은 즐겁다') {
-//         			$('img').hide();
-//         			$('.show-img2').show();
-//         		}
-
-
-
-
         	}); // end movie-choice.click
-
-
 
 
         	// 서울 선택
@@ -286,9 +293,33 @@
         		$(this).addClass('active2');
         	}); // end movie-list-btn
 
-
-
         }); // end document
+
+    	function dateChk() {
+    	    var getDate = $('.select-date').val();
+    	    $('#getData').val(getDate);
+
+    	    var selectDate = getDate;
+			console.log(selectDate);
+
+			$.ajax({
+    			type : 'post',
+    			 url : '/project1/movie/running-time',
+    			data : {'selectData' : selectDate},
+    			success : function(data) {
+    				console.log(data);
+    				if (data != null) {
+    					alert('서브쿼리문 값 가져오기 성공');
+//     					$('.get-poster').attr('src', '../resources/image/' + data + '.jpg');
+    				} else {
+    					alert('서브쿼리문 값 가져오기 성공');
+    				}
+    			}
+
+    		}); // end ajax
+
+
+    	}
 
 
 
