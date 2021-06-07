@@ -8,11 +8,14 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -74,19 +77,22 @@ public class MovieController {
 		String posterData = poster.getMovieId();
 		return posterData;
 
-//		LOGGER.info("선택한 날짜 값 : " + selectData);
 	}
 
 
 	// 상영 시간표 (상영중인 영화, 상영관 정보 가져오기) post
 	@PostMapping("/running-time")
 	@ResponseBody
-	public void screeningMovie(String selectData) throws Exception {
-		LOGGER.info("가져온 날짜 값 : " + selectData);
+	public List<RunningTimeVO> runningMovie(@RequestBody RunningTimeVO vo) throws Exception {
+		LOGGER.info("가져온 데이터 값 : " + vo.toString());
 
-
-		List<RunningTimeVO> info = movieservice.runningTimeInfo(selectData);
+		List<RunningTimeVO> info = movieservice.runningTimeInfo(vo);
 		LOGGER.info("Controller : " + info);
+//		String areaData = info.get(0).getArea().toString();
+//		LOGGER.info("Controller : " + areaData);
+//		return areaData;
+
+		return info;
 	}
 
 
