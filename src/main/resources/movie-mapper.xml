@@ -30,13 +30,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 where ${movieName} = #{movieName}
 	</select>
 
-	<!-- 상영중인 영화, 지점 정보 -->
+	<!-- 상영시간표 -->
  	<select id="runningTime" resultType="RunningTimeVO">
-		select *
+		select ${movieTime}, ${totalSeat}, ${emptySeat}
 		  from ${screeningMovie},
 		  	(select ${theaterName}, ${area}
 		  	   from ${theater})
-		 where #{selectData} <![CDATA[ < ]]> ${endDate}
+		 where #{startDate} <![CDATA[ < ]]> ${endDate}
+		   and #{area} = ${area}
+		   and #{theaterName} = ${theaterName}
+		   and #{theaterId} = ${theaterId}
  	</select>
 
 	<!-- 회원정보 삽입 -->
