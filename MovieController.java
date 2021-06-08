@@ -8,8 +8,6 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import goott.spring.project1.domain.MovieVO;
+import goott.spring.project1.domain.ReserveVO;
 import goott.spring.project1.domain.RunningTimeVO;
 import goott.spring.project1.domain.TheaterVO;
 import goott.spring.project1.domain.UserInfoVO;
@@ -38,6 +37,7 @@ public class MovieController {
 
 	@Autowired
 	PasswordEncoder pwEncoder;
+
 
 	// 메인화면 get
 	@GetMapping("/index")
@@ -88,14 +88,8 @@ public class MovieController {
 
 		List<RunningTimeVO> info = movieservice.runningTimeInfo(vo);
 		LOGGER.info("Controller : " + info);
-//		String areaData = info.get(0).getArea().toString();
-//		LOGGER.info("Controller : " + areaData);
-//		return areaData;
-
 		return info;
 	}
-
-
 
 	// 로그인 get
 	@GetMapping("/login")
@@ -134,9 +128,7 @@ public class MovieController {
 	public String logout(HttpSession session) throws Exception{
 
 		session.invalidate();
-
 		return "redirect:/movie/index";
-
 	}
 
 	// 회원가입창 get
@@ -215,17 +207,23 @@ public class MovieController {
 		LOGGER.info("회원가입 성공화면");
 	}
 
-
-	@GetMapping("/movie-list")
-	public void movie() {
-		LOGGER.info("영화 목록");
-	}
-
 	// 내정보 get
 	@GetMapping("/mypage")
-	public void myPage() {
+	public void myPage(Model model) throws Exception {
+		LOGGER.info("get : 내정보 확인 페이지");
+
+		List<ReserveVO> list;
+		list = movieservice.reserveSelect();
+		LOGGER.info("Controller : " + list);
+		model.addAttribute("reserve", list);
+	}
+
+	// 내정보 post
+	@PostMapping("/mypage")
+	public void myPage() throws Exception {
 		LOGGER.info("get : 내정보 확인 페이지");
 	}
+
 
 	// 회원 수정 get
 	@GetMapping("/info-update")
