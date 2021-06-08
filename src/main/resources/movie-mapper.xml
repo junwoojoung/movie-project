@@ -36,10 +36,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  from ${screeningMovie},
 		  	(select ${theaterName}, ${area}
 		  	   from ${theater})
-		 where #{startDate} <![CDATA[ < ]]> ${endDate}
-		   and #{area} = ${area}
-		   and #{theaterName} = ${theaterName}
-		   and #{theaterId} = ${theaterId}
+		 where ${endDate} <![CDATA[ > ]]> #{startDate}
+		   and ${area} = #{area}
+		   and ${theaterName} = #{theaterName}
+		   and ${theaterId} = #{theaterId}
  	</select>
 
 	<!-- 회원정보 삽입 -->
@@ -59,14 +59,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<select id="login" resultType="UserInfoVO">
  		select * from ${userInfo}
  		 where ${userId} = #{userId}
-<!--  		 and ${userPw} = #{userPw} -->
+	  <!-- and ${userPw} = #{userPw} -->
   	</select>
 
   	<!-- 회원정보 수정 -->
   	<update id="memberUpdate">
   		update ${userInfo} set
   		${userName} = #{userName},
-<!--   		${userPw} = #{userPw}, -->
+     <!-- ${userPw} = #{userPw}, -->
   		${userPhone} = #{userPhone},
   		${userEmail} = #{userEmail}
   		where ${userId} = #{userId}
@@ -76,7 +76,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	<delete id="memberDelete">
   		delete from ${userInfo}
   		 where ${userId} = #{userId}
-<!--   		   and ${userPw} = #{userPw}		 -->
+	  <!-- and ${userPw} = #{userPw} -->
   	</delete>
 
   	<!-- 비밀번호 체크 -->
@@ -87,5 +87,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		   and ${userPw} = #{userPw}
 	</select>
 
+	<!-- 예매정보 -->
+	<select id="reserve" resultType="ReserveVO">
+		select ${reserveTotPrice}, ${reserveViewDay}, ${reserveBuyDay}, ${movieName}
+		from ${reserve}
+	</select>
 
 </mapper>
