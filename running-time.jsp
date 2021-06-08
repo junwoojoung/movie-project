@@ -5,6 +5,44 @@
 <html>
 <style type="text/css">
 
+	body, html{
+		overflow: hidden;
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+	}
+
+	.bg-member{
+		background-color: #f5f5f5;
+	}
+
+	.ci a{
+		display: block;
+		width: 150px;
+		height: 53px;
+		background: url(https://img.megabox.co.kr/static/pc/images/common/ci/logo.png) center no-repeat;
+		padding: 0;
+		margin: 0 auto;
+	}
+
+	.ci{
+		overflow: hidden;
+		display: block;
+		margin: 0;
+		padding: 0 0 70px 0;
+		text-align: center;
+	}
+
+		.theater-wrap{
+		width: 1300px;
+		min-height: 100%;
+		margin: 0 auto;
+		padding: 80px 100px;
+		background-color: #fff;
+
+	}
+
 	.movie-choice-area {
 		align-items:center;
 	    overflow: hidden;
@@ -16,12 +54,9 @@
 	    padding: 0;
 	}
 
-
 	* {
 	    box-sizing: border-box;
 	}
-
-
 
 	.mt20 {
 	margin-top: 20px!important;
@@ -39,7 +74,6 @@
 	    display: block;
 	}
 
-
 	body {
 	    overflow: auto;
 	    overflow-y: scroll;
@@ -55,17 +89,15 @@
 	    padding: 0 240px 0 0;
 	}
 
-
 	.get-poster{
 	border-radius: 4px;
 	position: absolute;
-    left: 865px;
-    top: 10px;
-    height: 297px;
+    left: 1260px;
+    top: 204px;
+    height: 298px;
     width: 242px;
     padding: 0;
 	}
-
 
 	.tab-left-area {
 	    float: left;
@@ -107,7 +139,6 @@
  		border: 1px solid #d8d9db;
        }
 
-
 	.seoul-btn, .gyeonggi-btn {
 		border: 1px solid #d8d9db;
 		width: 180px;
@@ -115,8 +146,6 @@
 		position: inherit;
 		background-color: #fff;
 	}
-
-
 
 	 .area-choice {
     	width: 70px;
@@ -131,7 +160,6 @@
 		height: 30px;
 		background-color: #fff;
 	}
-
 
 	.active {
 		background-color: #666;
@@ -158,8 +186,6 @@
 	    padding: 0;
 	}
 
-
-
 	.tit {
 		line-height: 44px;
 		margin: 0;
@@ -174,101 +200,159 @@
 	}
 
 
+	.theater_item {
+ 		padding-top: 30px!important;
+ 		padding-bottom: 30px;
+ 		border-bottom: 1px solid #d8d9db;
+		float: left;
+	}
 
+	table {
+	border-collapse: collapse;
+    empty-cells: show;
+	}
 
+	.time-list-table {
+	border-top: 1px solid #ebebeb;
+    border-left: 1px solid #ebebeb;
+    width: 800px;
+    margin-left: 9px;
+    width: auto;
+    table-layout: auto;
+	}
 
+	tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+	}
+
+	td {
+		    width: 99px;
+    border-right: 1px solid #ebebeb;
+    border-bottom: 1px solid #ebebeb;
+    text-align: center;
+	}
+
+	.td-ab {
+    width: 100%;
+    height: 69px;
+    display: table;
+	}
+
+	.txt-center {
+    display: table-cell;
+    vertical-align: middle;
+    position: relative;
+	}
+
+	.time {
+	font-size: 1.2em;
+    color: #444;
+    font-weight: 400;
+    line-height: 1em;
+    font-family: Roboto;
+	}
+
+	.seat {
+		color: #01738b;
+	}
 </style>
 <head>
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <title>상영시간표</title>
 </head>
-<body>
-	<div class="movie-choice-area">
+<body class="bg-member">
+	<div class="theater-wrap">
+		<h1 class="ci">
+			<a href="/project1/movie/index" title="메인 페이지로 이동" ></a>
+		</h1>
 
-		<div class="tab-left-area">
-					<button title="영화별 선택" class="movie-list-btn">
-						<img src="https://img.megabox.co.kr/static/pc/images/common/ico/ico-tab-movie-on.png" class="left-icon">영화별
-					</button>
+		<div class="movie-choice-area">
 
-					<button title="극장별 선택" class="theater-list-btn">
-						<img src="https://img.megabox.co.kr/static/pc/images/common/ico/ico-tab-theater.png" class="left-icon">극장별
-					</button>
-		</div>
+			<div class="tab-left-area">
+				<button title="영화별 선택" class="movie-list-btn">
+					<img src="https://img.megabox.co.kr/static/pc/images/common/ico/ico-tab-movie-on.png" class="left-icon">영화별
+				</button>
 
-		<div class="movie-part">
-			<p class="movie-title">전체영화</p>
-			<div class="movie-list">
-	            <c:forEach var="movie" items="${allList }">
-	            	<ul class="list">
-	            		<li><input type="button" id="movieChoice" class="movie-choice" value="${movie.movieName}"></li>
-	            	</ul>
-				</c:forEach>
-					<div class="rigth">
+				<button title="극장별 선택" class="theater-list-btn">
+					<img src="https://img.megabox.co.kr/static/pc/images/common/ico/ico-tab-theater.png" class="left-icon">극장별
+				</button>
+			</div>
+
+			<div class="movie-part">
+				<p class="movie-title">전체영화</p>
+				<div class="movie-list">
+		            <c:forEach var="movie" items="${allList }">
+		            	<ul class="list">
+		            		<li><input type="button" id="movieChoice" class="movie-choice" value="${movie.movieName}"></li>
+		            	</ul>
+					</c:forEach>
+						<div class="rigth">
 							<img class="get-poster">
-					</div>
+						</div>
+				</div>
+				<!-- end movie-list -->
 			</div>
-			<!-- end movie-list -->
-		</div>
-		<!-- end movie-part -->
+			<!-- end movie-part -->
 
-		<div class="theater-part" style="display: none;">
-			<p class="theater-title">극장</p>
-			<div class="theater-list">
-			<input type="button" id="seoulChk" class="area-choice" value="서울">
-	        <input type="button" id="gyeonggiChk" class="area-choice" value="경기">
-		        <div class="theater-name">
-		        	<c:forEach var="theater" items="${theater}">
-		            	<c:if test="${theater.area eq '서울'}">
-		            		<div class="show-seoul" style="display: none;"><input type="button" class="hide-name" value="${theater.theaterName }"></div>
-		            	</c:if>
-		            	<c:if test="${theater.area eq '경기'}">
-		            		<div class="show-gyeonggi" style="display: none;"><input type="button" class="hide-name" value="${theater.theaterName }"></div>
-		            	</c:if>
-		            </c:forEach>
-		       </div>
-		       <!-- end theater-name -->
+			<div class="theater-part" style="display: none;">
+				<p class="theater-title">극장</p>
+				<div class="theater-list">
+				<input type="button" id="seoulChk" class="area-choice" value="서울">
+		        <input type="button" id="gyeonggiChk" class="area-choice" value="경기">
+			        <div class="theater-name">
+			        	<c:forEach var="theater" items="${theater}">
+			            	<c:if test="${theater.area eq '서울'}">
+			            		<div class="show-seoul" style="display: none;"><input type="button" class="hide-name" value="${theater.theaterName }"></div>
+			            	</c:if>
+			            	<c:if test="${theater.area eq '경기'}">
+			            		<div class="show-gyeonggi" style="display: none;"><input type="button" class="hide-name" value="${theater.theaterName }"></div>
+			            	</c:if>
+			            </c:forEach>
+			       </div>
+			       <!-- end theater-name -->
+				</div>
+				<!-- end theater-list -->
 			</div>
-			<!-- end theater-list -->
-
+			<!-- end theater-part -->
 		</div>
-		<!-- end theater-part -->
-	</div>
-	<!-- end movie-choice-area -->
+		<!-- end movie-choice-area -->
 
-	<h3 class="tit mt60">
-		<span class="movie-name"><!-- 선택한 영화 이름 가져오기 --></span> 상영시간표
-	</h3>
+		<h3 class="tit mt60">
+			<span class="movie-name"><!-- 선택한 영화 이름 가져오기 --></span> 상영시간표
+		</h3>
 
-	<div class="date">
-	 	<input type="date" class="select-date">
-	 	<input type="text" id="getData">
-    </div>
+		<div class="date">
+		 	<input type="date" class="select-date">
+		 	<input type="hidden" id="getData">
+	    </div>
 
+		<div class="theater-list-box mt30">
+			<input type="button" value="서울" class="seoul-btn">
+			<input type="button" value="경기" class="gyeonggi-btn">
 
-
-	<div class="theater-list-box mt30">
-		<input type="button" value="서울" class="seoul-btn">
-		<input type="button" value="경기" class="gyeonggi-btn">
-		<div class="area mt20">
-			<c:forEach var="theater" items="${theater}">
-				<c:if test="${theater.area eq '서울'}">
-			    	<div class="show-seoul" style="display: none;"><input type="button" class="area-name" value="${theater.theaterName }"></div>
-			    </c:if>
-			    <c:if test="${theater.area eq '경기'}">
-			    	<div class="show-gyeonggi" style="display: none;"><input type="button" class="area-name" value="${theater.theaterName }"></div>
-			    </c:if>
-			</c:forEach>
+			<!-- 서울 or 경기 버튼 클릭 시 각 지역의 상영점 출력 -->
+			<div class="area mt20">
+				<c:forEach var="theater" items="${theater}">
+					<c:if test="${theater.area eq '서울'}">
+				    	<div class="show-seoul" style="display: none;"><input type="button" class="area-name" value="${theater.theaterName }"></div>
+				    </c:if>
+				    <c:if test="${theater.area eq '경기'}">
+				    	<div class="show-gyeonggi" style="display: none;"><input type="button" class="area-name" value="${theater.theaterName }"></div>
+				    </c:if>
+				</c:forEach>
+			</div>
 		</div>
+		<!-- end theater-list-box -->
+
+		<!-- 시간, 지역, 상영점 클릭 시 ajax를 통해 데이터를 반환하는 부분 -->
+		<div class="theater-list mt60"></div>
 	</div>
-
-
-
-
-	<div id="replies"></div>
+	<!-- end theater-wrap -->
 
 <script>
-
         $(document).ready(function(){
         	// 영화별 선택
         	$('.movie-list-btn').click(function(){
@@ -405,31 +489,36 @@
         				console.log(data);
         				var list = '';
         				if (data != null) {
-        					alert('서브쿼리문 값 가져오기 성공');
-//         					$(data).each(function(){
-//         						list += '<div class="reply_item">'
-//     								+ '<pre>'
-//     								+ '<input type="button" id="replyNo" value="' + this.totalSeat + '" />'
-//     								+ '</pre>'
-//     								+ '</div>';
-//         					}); // end each()
-//         					 $('#replies').html(list);
-
+//         					alert('서브쿼리문 값 가져오기 성공');
+        					$(data).each(function(){ // this : 컬렉션에서 각 데이터를 꺼내서 저장
+								console.log(this);
+        						list += '<div class="theater_item">'
+        						+ '<table class="time-list-table">'
+        						+ '<tbody>'
+        						+ '<tr>'
+        						+ '<td>'
+        						+ '<div class="td-ab">'
+        						+ '<div class="txt-center">'
+        						+ '<p class="time">' + this.movieTime + '</p>'
+        						+ '<p class="seat">' + this.totalSeat + '/' + this.emptySeat + '</p>'
+        						+ '</div>'
+        						+ '	</div>'
+        						+ '</td>'
+        						+ '</table>'
+    							+ '</div>';	// end theater_item
+        					}); // end each()
+        					 $('.theater-list').html(list);
         				} else {
         					alert('ERROR');
         				}
-        			}
+        			} // end success
 
         		}); // end ajax
-
-
 
         	}) // end area-name.click
 
         }); // end document
 
-
     </script>
-
 </body>
 </html>
