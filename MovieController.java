@@ -27,7 +27,6 @@ import goott.spring.project1.domain.UserInfoVO;
 import goott.spring.project1.service.MovieService;
 
 @Controller
-@RequestMapping(value = "/movie") // url : /project1/movie
 public class MovieController {
 	private static final Logger LOGGER =
 	         LoggerFactory.getLogger(MovieController.class);
@@ -40,77 +39,79 @@ public class MovieController {
 
 
 	// 메인화면 get
-	@GetMapping("/index")
+	@GetMapping("movie/index")
 	public void index(Model model) throws Exception {
-		LOGGER.info("main 화면 호출");
+		LOGGER.info("indexGet() 호출");
 		List<MovieVO> list;
 		list = movieservice.read();
+//		LOGGER.info("indexGet() : " + list);
 		model.addAttribute("list", list);
 	}
 
 	// 상영 시간표 get
-	@GetMapping("/running-time")
+	@GetMapping("movie/running-time")
 	public void movie_list(Model model) throws Exception {
+		LOGGER.info("movie_listGet() 호출");
 
 		// 영화별 클릭 시 모든 영화 목록을 출력해주기 위함
 		List<MovieVO> allList;
 		allList = movieservice.AllmovieList();
-//		LOGGER.info("영화 정보" + allList);
+//		LOGGER.info("영화 정보 : " + allList);
 		model.addAttribute("allList", allList);
 
 		// 극장별 클릭 시 모든 극장에 대한 목록을 출력해주기 위함
 		List<TheaterVO> theater;
 		theater = movieservice.theaterList();
-//		LOGGER.info("상영관 정보" + theater);
+//		LOGGER.info("상영관 정보 : " + theater);
 		model.addAttribute("theater", theater);
 
 	}
 
 	// 상영 시간표 (영화 정보 가져오기) post
-	@PostMapping("/movie-info")
+	@PostMapping("movie/movie-info")
 	@ResponseBody
 	public String movie_list(String movieName) throws Exception {
+		LOGGER.info("movie_listGet() 호출");
 		LOGGER.info("영화 이름 : " + movieName);
 
 		MovieVO poster = movieservice.getPoster(movieName);
 		LOGGER.info("아이디 반환 값 : " + poster.getMovieId());
 		String posterData = poster.getMovieId();
 		return posterData;
-
 	}
 
-
 	// 상영 시간표 (상영중인 영화, 상영관 정보 가져오기) post
-	@PostMapping("/running-time")
+	@PostMapping("movie/running-time")
 	@ResponseBody
 	public List<RunningTimeVO> runningMovie(@RequestBody RunningTimeVO vo) throws Exception {
+		LOGGER.info("runningMovie() 호출");
 		LOGGER.info("가져온 데이터 값 : " + vo.toString());
 
 		List<RunningTimeVO> info = movieservice.runningTimeInfo(vo);
-		LOGGER.info("Controller : " + info);
+		LOGGER.info("상영시간표 데이터 값 : " + info);
 		return info;
 	}
 
 	// 로그인 get
-	@GetMapping("/login")
+	@GetMapping("login/login")
 	public void login() {
-		LOGGER.info("get-login 팝업창 호출");
+		LOGGER.info("loginGet() 호출");
 	}
 
 	// 로그인 post
-	@PostMapping("/login")
+	@PostMapping("login/login")
 	@ResponseBody
 	public String login(String userId, String userPw, HttpServletRequest req, RedirectAttributes rttr) throws Exception{
-		LOGGER.info("post-login 접속");
+		LOGGER.info("loginPost() 호출");
 		LOGGER.info("userId : " + userId);
 		LOGGER.info("userPw : " + userPw);
 
 		HttpSession session = req.getSession();
 		UserInfoVO login = movieservice.login(userId, userPw);
 		boolean pwMatch = pwEncoder.matches(userPw, login.getUserPw());
-		LOGGER.info(userPw + login.getUserPw());
-
-		LOGGER.info("login : " + login);
+		LOGGER.info("입력한 비밀번호 : " + userPw);
+		LOGGER.info("암호화 비밀번호 : " + login.getUserPw());
+		LOGGER.info("가져온 데이터 값 : " + login);
 
 		if (login != null && pwMatch == true) {
 			LOGGER.info("login Not Null");
@@ -124,30 +125,30 @@ public class MovieController {
 	}
 
 	// 로그아웃 get
-	@GetMapping("/logOut")
+	@GetMapping("login/logOut")
 	public String logout(HttpSession session) throws Exception{
-
+		LOGGER.info("logoutGet() 호출");
 		session.invalidate();
 		return "redirect:/movie/index";
 	}
 
 	// 회원가입창 get
-	@GetMapping("/join")
+	@GetMapping("login/join")
 	public void join() {
-		LOGGER.info("회원가입 화면 호출 test");
+		LOGGER.info("joinGet() 호출");
 	}
 
 	// 실명인증창 get
-	@GetMapping("/auth")
+	@GetMapping("login/auth")
 	public void auth() {
-		LOGGER.info("실명인증 팝업창 호출");
+		LOGGER.info("authGet 호출");
 	}
 
 	// 약관동의창 get
-	@GetMapping("/tos")
+	@GetMapping("login/tos")
 	public void tos(String name, String ssn1 , String ssn2, String phone, Model model) {
-		LOGGER.info("이용 약관 동의 페이지");
-		LOGGER.info("stem1 -> stem2 : " + name + "\n" + ssn1 + "\n" + ssn2 + "\n" + phone);
+		LOGGER.info("tosGet() 호출");
+		LOGGER.info("step1 -> step2 : " + name + ", " + ssn1 + ", " + ssn2 + ", " + phone);
 		model.addAttribute("name", name);
 		model.addAttribute("ssn1", ssn1);
 		model.addAttribute("ssn2", ssn2);
@@ -155,22 +156,21 @@ public class MovieController {
 	}
 
 	// 회원가입 get
-	@GetMapping("/info-input")
+	@GetMapping("login/info-input")
 	public void info_input(String name, String ssn1 , String ssn2, String phone, Model model) {
-		LOGGER.info("회원 정보 입력 페이지 호출");
-		LOGGER.info("stem2 -> stem3 : \n" + name + "\n" + ssn1 + "\n" + ssn2 + "\n" + phone);
+		LOGGER.info("info_input() 호출");
+		LOGGER.info("step2 -> step3 : " + name + ", " + ssn1 + ", " + ssn2 + ", " + phone);
 		model.addAttribute("name", name);
 		model.addAttribute("ssn1", ssn1);
 		model.addAttribute("ssn2", ssn2);
 		model.addAttribute("phone", phone);
 	}
 
-
 	// 회원가입 post
-	@PostMapping("/info-input")
+	@PostMapping("login/info-input")
 	public String postRegister(UserInfoVO vo) throws Exception {
-		LOGGER.info("회원정보 입력 데이터 삽입");
-		LOGGER.info(vo.toString());
+		LOGGER.info("postRegisterGet() 호출");
+		LOGGER.info("가져온 데이터 값 : " + vo.toString());
 		int result = movieservice.idChk(vo);
 		try {
 			if (result == 1) {
@@ -186,74 +186,72 @@ public class MovieController {
 
 				movieservice.register(vo);
 			}
-			// 입력된 아이디가 존재하면 페이지 돌아가기
-			// 존재하지 않으면 register
 		} catch (Exception e) {
 	}
-		return "redirect:/movie/join-complete";
+		return "redirect:/login/join-complete";
 	}
 
 	// 아이디 중복체크
-	@PostMapping("/userIdChk")
+	@PostMapping("login/userIdChk")
 	@ResponseBody
 	public int idChk(UserInfoVO vo) throws Exception{
+		LOGGER.info("idChkGet() 호출");
+		LOGGER.info("가져온 데이터 값 : " + vo);
 		int result = movieservice.idChk(vo);
 		return result;
 	}
 
 	// 회원가입 성공 페이지
-	@RequestMapping(value = "/join-complete", method = {RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value = "login/join-complete", method = {RequestMethod.GET,RequestMethod.POST})
 	public void joinComple() {
-		LOGGER.info("회원가입 성공화면");
+		LOGGER.info("joinCompleGet() 호출");
 	}
 
 	// 내정보 get
-	@GetMapping("/mypage")
+	@GetMapping("member/mypage")
 	public void myPage(Model model) throws Exception {
-		LOGGER.info("get : 내정보 확인 페이지");
+		LOGGER.info("mypageGet() 호출");
 
 		List<ReserveVO> list;
 		list = movieservice.reserveSelect();
-		LOGGER.info("Controller : " + list);
+		LOGGER.info("예매정보 출력 값 : " + list);
 		model.addAttribute("reserve", list);
 	}
 
 	// 내정보 post
-	@PostMapping("/mypage")
+	@PostMapping("member/mypage")
 	public void myPage() throws Exception {
-		LOGGER.info("get : 내정보 확인 페이지");
+		LOGGER.info("mypagePost() 호출");
 	}
 
-
 	// 회원 수정 get
-	@GetMapping("/info-update")
+	@GetMapping("member/info-update")
 	public void memberUpdate() throws Exception{
-		LOGGER.info("get : 회원정보 수정 페이지");
+		LOGGER.info("memberUpdateGet() 호출");
 	}
 
 	// 회원 수정 post
-	@PostMapping("/info-update")
+	@PostMapping("member/info-update")
 	public String memberUpdate(UserInfoVO vo, HttpSession session) throws Exception {
-		LOGGER.info("post : 회원정보 수정 페이지");
-		LOGGER.info("Controller : " + vo.toString());
+		LOGGER.info("memberUpdatePost() 호출");
+		LOGGER.info("가져온 데이터 값 : " + vo.toString());
 		movieservice.memberUpdate(vo);
 
-		session.invalidate();
-
+		session.invalidate(); // 세션 삭제
 		return "redirect:/movie/index";
 	}
 
 	// 회원 삭제 get
-	@GetMapping("/info-delete")
+	@GetMapping("member/info-delete")
 	public void memberDelete() {
-		LOGGER.info("get : 회원정보 삭제 페이지");
+		LOGGER.info("memberDeleteGet() 호출");
 	}
 
 	// 회원 삭제 post
-	@PostMapping("/info-delete")
+	@PostMapping("member/info-delete")
 	public String memberDelete(UserInfoVO vo, HttpSession session, RedirectAttributes rttr) throws Exception {
-		LOGGER.info("post : 회원정보 삭제 페이지");
-		LOGGER.info(vo.toString());
+		LOGGER.info("memberDeletePost() 호출");
+		LOGGER.info("가져온 데이터 값 : " + vo.toString());
 
 		movieservice.memberDelete(vo);
 		session.invalidate();
@@ -263,12 +261,10 @@ public class MovieController {
 
 	// 비밀번호 체크
 	@ResponseBody
-	@PostMapping("/pwChk")
+	@PostMapping("movie/pwChk")
 	public boolean pwChk(UserInfoVO vo) throws Exception {
-//		LOGGER.info("Controller : " + vo.toString());
-//		int result = movieservice.pwChk(vo);
-//		LOGGER.info("리턴 값" + result);
-//		return result;
+		LOGGER.info("pwChkPost() 호출");
+		LOGGER.info("가져온 데이터 값 : " + vo.toString());
 
 		UserInfoVO login = movieservice.login(vo.getUserId(),vo.getUserPw());
 		boolean pwChk = pwEncoder.matches(vo.getUserPw(), login.getUserPw());
@@ -276,8 +272,6 @@ public class MovieController {
 		LOGGER.info("암호화 비밀번호 : " + login.getUserPw());
 		LOGGER.info("true or false : " + pwChk);
 		return pwChk;
-
 	}
-
 
 }
