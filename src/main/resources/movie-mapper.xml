@@ -37,7 +37,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  	(select ${theaterName}, ${area}
 		  	   from ${theater})
 		 where ${endDate} <![CDATA[ > ]]> #{startDate}
-		   and ${area} = #{area}
 		   and ${theaterName} = #{theaterName}
 		   and ${theaterId} = #{theaterId}
  	</select>
@@ -89,7 +88,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 예매정보 -->
 	<select id="reserve" resultType="ReserveVO">
-		select ${reserveTotPrice}, ${reserveViewDay}, ${reserveBuyDay}, ${movieName}
+		select ${saleId}, ${reserveTotPrice}, ${reserveViewDay}, ${reserveBuyDay}, ${movieName}
 		from ${reserve}
 	</select>
 
