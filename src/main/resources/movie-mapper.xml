@@ -91,5 +91,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select ${saleId}, ${reserveTotPrice}, ${reserveViewDay}, ${reserveBuyDay}, ${movieName}
 		from ${reserve}
 	</select>
-
 </mapper>
