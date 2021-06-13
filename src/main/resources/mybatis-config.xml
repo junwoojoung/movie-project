@@ -60,8 +60,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		 <property name="reserveYnc" value="RESERVE_YNC"/>
 	</properties>
 
-
-
 	<!-- Underscore 명명법을 Camel 명명법으로 매핑 -->
 	<settings>
 		<setting name="mapUnderscoreToCamelCase" value="true"/>
