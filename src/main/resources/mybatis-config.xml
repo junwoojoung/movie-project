@@ -42,10 +42,22 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		 <property name="movieId" value="MOVIE_ID"/>
 		 <property name="theaterId" value="THEATER_ID"/>
 		 <property name="movieTime" value="MOVIE_TIME"/>
-		 <property name="movieDate" value="MOIVE_DATE"/>
 		 <property name="totalSeat" value="TOTAL_SEAT"/>
-		 <property name="reservedSeat" value="RESERVED_SEAT"/>
+		 <property name="emptySeat" value="EMPTY_SEAT"/>
+		 <property name="startDate" value="START_DATE"/>
+		 <property name="endDate" value="END_DATE"/>
 
+		 <!-- 예매 정보 테이블 -->
+		 <property name="reserve" value="RESERVE"/>
+		 <property name="saleId" value="SALE_ID"/>
+		 <property name="movieId" value="MOVIE_ID"/>
+		 <property name="userId" value="USER_ID"/>
+		 <property name="priceId" value="PRICE_ID"/>
+		 <property name="seatId" value="SEAT_ID"/>
+		 <property name="reserveTotPrice" value="RESERVE_TOT_PRICE"/>
+		 <property name="reserveViewDay" value="RESERVE_VIEWDAY"/>
+		 <property name="reserveBuyDay" value="RESERVE_BUYDAY"/>
+		 <property name="reserveYnc" value="RESERVE_YNC"/>
 	</properties>
 
 
