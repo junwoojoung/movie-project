@@ -1,0 +1,154 @@
+@charset "UTF-8";
+
+	img {
+		border-radius: 10px 10px 10px 10px;
+	}
+
+	div {
+		float: left;
+		padding-left: 60px;
+		font-family: system-ui;
+		font-weight: bold;
+		font-size: 16px;
+		color: white;
+		padding-bottom: 3px;
+	}
+
+	.movie-info {
+		float: none;
+	}
+
+	.row {
+	padding-top: 10px;
+	}
+
+ 	div.button {
+ 	padding: 0;
+ 	}
+
+ 	.poster {
+ 		padding: 0;
+ 		color: #fff;
+ 	}
+
+ 	.button {
+ 	height: 36px;
+ 	width: 250px;
+ 	background-color: #037b94;
+ 	color: white; border-radius: 10px;
+ 	outline: 0; border: 0; font-family: system-ui;
+ 	font-size: 24px;
+ 	text-align: center;
+ 	font-weight: bold;
+ 	text-decoration: none;
+
+ 	}
+
+	/*박스 오피스 시작*/
+	.body_top {
+	padding-left: 870px;
+	padding-top: 30px;
+	font-size: 20px;
+	padding-bottom: 30px;
+	}
+
+	.body_top_a {
+		color: #fff;
+    text-decoration: none;
+        border-bottom: 2px solid rgba(255,255,255,0.2);
+
+	}
+	/*박스 오피스 끝*/
+
+	/*더 많은 정보 보기 시작*/
+	.more_info {
+		padding-left: 1468px;
+	}
+
+	.more_info_a {
+		color: #aaa;
+		font-size: 15px;
+
+	}
+	/* end 더 많은 정보 보기 */
+
+	.box {
+		position: relative;
+	}
+
+	.text {
+		padding: 0;
+		position: absolute;
+		visibility: hidden;
+	}
+
+	.box:hover {
+		opacity: 0.7;
+	}
+
+	.box:hover .text {
+		visibility: visible;
+	}
+
+	.summary_font {
+	color: white;
+    font-size: 15px;
+    font-weight: bold;
+	}
+
+	/* 검색 링크 및 빠른 이동 */
+	.search_link {
+		margin-top: 17px;
+		margin-left: 237px;
+		width: 1304px;
+		height: 100px;
+		background-color: rgba( 0, 0, 0, 0.3 );
+		position: relative;
+	}
+
+	.btn {
+		margin-left: 0;
+		background-color: transparent;
+		margin-top: 33px;
+		width: 37px;
+		height: 34px;
+	}
+
+	.search_icon {
+		width: 28px;
+		height: 28px;
+	}
+
+	.text_search {
+ 		background-color: transparent;
+		display: inline-block;
+		color: white;
+		border: 1px solid #fff;
+		vertical-align: middle;
+		width: 250px;
+		height: 37px;
+		font-size: 22px;
+		font-weight: bold;
+		margin-bottom: 10px;
+	}
+
+	.running_time, .box_office, .quick_reserve {
+		margin-left: 50px;
+		margin-top: 33px;
+		height: 37px;
+		width: 160px;
+		font-size: 24px;
+	}
+
+	.screen_a, .box_a, .reserve_a {
+		text-decoration: none;
+		color: white;
+	}
+
+	.screen_icon, .box_icon, .reserve_icon {
+		width: 28px;
+		height: 28px;
+
+	}
+	/* end 검색 링크 및 빠른 이동 */
+	
