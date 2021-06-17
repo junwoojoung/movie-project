@@ -11,7 +11,7 @@ http://www.springframework.org/schema/context
 http://www.springframework.org/schema/context/spring-context.xsd">
 	<!-- Root Context: defines shared resources visible to all other web components -->
 
-		<!-- DataSource Bean -->
+	<!-- DataSource Bean -->
 	<bean id="ds" class="oracle.jdbc.pool.OracleDataSource" destroy-method="close">
 		<property name="dataSourceName" value="ds"></property>
 		<property name="URL" value="jdbc:oracle:thin:@localhost:1521:xe"></property>
@@ -33,12 +33,9 @@ http://www.springframework.org/schema/context/spring-context.xsd">
 		</constructor-arg>
 	</bean>
 
-
-
 	<!--
-      	base-package 밑의 클래스들 중에서
-     	@Component로 등록된 클래스들을 bean으로 생성해서 관리
+      	base-package 밑의 클래스들 중에서 @Component로 등록된 클래스들을 bean으로 생성해서 관리
       	Persistence/Service Layer의 컴포넌트 클래스들을 bean으로 등록
-    -->
+    	-->
 	<context:component-scan base-package="goott.spring.project1"></context:component-scan>
 </beans>
