@@ -49,11 +49,16 @@ public class LoginController {
 
 		HttpSession session = req.getSession();
 		UserInfoVO login = movieservice.login(userId, userPw);
-		boolean pwMatch = pwEncoder.matches(userPw, login.getUserPw());
-		LOGGER.info("입력한 비밀번호 : " + userPw);
-		LOGGER.info("암호화 비밀번호 : " + login.getUserPw());
 		LOGGER.info("가져온 데이터 값 : " + login);
 
+		boolean pwMatch;
+		if (login != null) {
+			pwMatch = pwEncoder.matches(userPw, login.getUserPw());
+//			LOGGER.info("입력한 비밀번호 : " + userPw);
+//			LOGGER.info("암호화 비밀번호 : " + login.getUserPw());
+		} else {
+			pwMatch = false;
+		}
 		if (login != null && pwMatch == true) {
 			LOGGER.info("login Not Null");
 			session.setAttribute("member", login);
