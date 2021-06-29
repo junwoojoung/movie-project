@@ -16,12 +16,33 @@ function idChk() {
 			} else if (data == 0) {
 				$('#btnUserIdDup').attr('value', 'Y');
 				alert('사용가능한 아이디입니다.');
+				$('#JoinId-error-text').hide();
 			}
 		} // success
 
 	}); // end ajax
 
 } // end function idChk()
+
+
+$(function() {
+	$('.alert-success').hide();
+	$('.alert-danger').hide();
+	$('#userPwConfirm').keyup(function() {
+		var pw1 = $('#userPw').val();
+		var pw2 = $('#userPwConfirm').val();
+
+		if (pw1 != '' || pw2 != ''){
+			if (pw1 == pw2) {
+				$('.alert-success').show();
+				$('.alert-danger').hide();
+			} else {
+				$('.alert-success').hide();
+				$('.alert-danger').show();
+			}
+		}
+	}); // end userPwConfirm.keyup
+}); // end function
 
 $(document).ready(function(){
 
@@ -63,6 +84,7 @@ $(document).ready(function(){
 		// 이메일 정규식
 		var emailCheck = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
 
+		// 아이디 확인
 		if (!idCheck.test($('#userId').val())){
 			$('#JoinId-error-text').show();
 			$('#userId').val('');
@@ -70,6 +92,7 @@ $(document).ready(function(){
 			return false;
 		}
 
+		// 비밀번호 확인
 		if (!pwCheck.test($('#userPw').val())){
 			$('#JoinPw-error-text').show();
 			$('#userPw').val('');
@@ -77,13 +100,7 @@ $(document).ready(function(){
 			return false;
 		}
 
-		if ($('#userPw').val() != $('#userPwConfirm').val()){
-			$('#JoinPw-Dup-text').show();
-			$('#userPwConfirm').val('');
-			$('#userPwConfirm').focus();
-			return false;
-		}
-
+		// 이메일 확인
 		if (!emailCheck.test($('#userEmail').val())){
 			$('#JoinEmail-error-text').show();
 			$('#userEmail').val('');
@@ -91,11 +108,13 @@ $(document).ready(function(){
 			return false;
 		}
 
+		// 라디오박스 동의 여부 확인
 		if ($('input[name=marketing_agree]:radio:checked').length <1) {
 			$('#agree-check-text').show();
 			return false;
 		}
 
+		// 동의 시 혜택 수신설정 확인
 		if ($('input[id=agree]').is(':checked') == true) {
 			if ($('input:checkbox[name="mt"]').is(':checked') == false) {
 				$('#mt-check-text').show();
@@ -103,6 +122,7 @@ $(document).ready(function(){
 			}
 		}
 
+		// 중복 확인 버튼
 		var idChkVal = $('#btnUserIdDup').val();
 		if (idChkVal == 'N') {
 			alert('중복확인 버튼을 눌러주세요.');
