@@ -1,7 +1,7 @@
 function idChk() {
 	var idCheck = /^[a-zA-Z0-9]{8,12}$/;
 	if (!idCheck.test($('#userId').val())){
-		alert('가입조건에 맞는 아이디를 입력해주세요.');
+		alert('가입조건에 맞는 아이디를 입력해주세요.\n입력형식 : 영문,숫자 조합 8자리 이상 12자리 이하');
 		return false;
 	}
 
@@ -72,6 +72,17 @@ $(document).ready(function(){
 	phone = phone.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3");
 	$('#return-phone').html(phone);
 
+	// 마케팅 동의 여부 버튼
+	$('.radio-value').on('click', function() {
+    	var valueCheck = $('.radio-value:checked').val(); // 체크된 Radio 버튼의 값을 가져옵니다.
+		console.log(valueCheck);
+
+		if (valueCheck == 'YES') {
+			$('input[name=mt]').attr('disabled', false);
+		}else {
+			$('input[name=mt]').attr('disabled', true);
+		};
+	});// end radio-value.click
 
 	// 회원가입 버튼
 	$("#btnJoin").click(function(){
@@ -100,17 +111,18 @@ $(document).ready(function(){
 			return false;
 		}
 
+		if ($('#userPw').val() != $('#userPwConfirm').val()) {
+			alert('비밀번호 확인을 다시 입력하세요.');
+			$('#userPwConfirm').val('');
+			$('#userPwConfirm').focus();
+			return false;
+		}
+
 		// 이메일 확인
 		if (!emailCheck.test($('#userEmail').val())){
 			$('#JoinEmail-error-text').show();
 			$('#userEmail').val('');
 			$('#userEmail').focus();
-			return false;
-		}
-
-		// 라디오박스 동의 여부 확인
-		if ($('input[name=marketing_agree]:radio:checked').length <1) {
-			$('#agree-check-text').show();
 			return false;
 		}
 
@@ -120,7 +132,7 @@ $(document).ready(function(){
 				$('#mt-check-text').show();
 				return false;
 			}
-		}
+		};
 
 		// 중복 확인 버튼
 		var idChkVal = $('#btnUserIdDup').val();
