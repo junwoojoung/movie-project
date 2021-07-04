@@ -240,13 +240,15 @@ $(document).ready(function() {
 					// alert('서브쿼리문 값 가져오기 성공');
 					$(data).each(function() { // this : 컬렉션에서 각 데이터를 꺼내서 저장
 						console.log(this);
+
+
 						list += '<div class="theater_item">'
 							+ '<table class="time-list-table">'
 							+ '<tbody>'
 							+ '<tr>'
 							+ '<td>'
 							+ '<div class="td-ab">'
-							+ '<button class="btn-center">'
+							+ '<button class="btn-center" onclick="show(this.value)" value="' + this.movieTime + '">'
 							+ '<p class="time">' + this.movieTime + '</p>'
 							+ '<p class="seat">' + this.totalSeat + '/' + this.emptySeat + '</p>'
 							+ '</button>'
@@ -254,11 +256,9 @@ $(document).ready(function() {
 							+ '</td>'
 							+ '</table>'
 							+ '</div>';
-
-							$('#time').val(this.movieTime);
-
 						// end theater_item
 					}); // end each()
+
 					$('.theater-list').html(list);
 				} else {
 					alert('ERROR');
@@ -271,9 +271,10 @@ $(document).ready(function() {
 
 }); // end document
 
-function timeAndSeat(e) {
-	console.log($(e).attr('this.movieTime'));
+function show(val) {
+	console.log(val);
 
+	$('#time').val(val);
 }
 
 </script>
